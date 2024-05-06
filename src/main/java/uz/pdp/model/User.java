@@ -1,6 +1,7 @@
 package uz.pdp.model;
 
 import lombok.*;
+import uz.pdp.enumerator.Role;
 
 
 @Getter

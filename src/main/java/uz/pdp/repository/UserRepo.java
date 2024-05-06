@@ -2,9 +2,11 @@ package uz.pdp.repository;
 
 import uz.pdp.exception.DataNotFoundException;
 import uz.pdp.model.User;
+import uz.pdp.util.Message;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Optional;
 
 public class UserRepo extends BaseRepo<User> {
 
@@ -24,18 +26,16 @@ public class UserRepo extends BaseRepo<User> {
 
     public User findByUsername(String username) {
         ArrayList<User> users = getAll();
-
         User user1 = users.stream().filter((user -> user.getUsername().equals(username))).findAny().get();
-
         if (Objects.isNull(user1)) {
             try {
                 throw new DataNotFoundException("data not found ");
             } catch (DataNotFoundException e) {
                 throw new RuntimeException(e);
             }
-
         }
         return user1;
     }
+
 }
 

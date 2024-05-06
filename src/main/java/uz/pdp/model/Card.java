@@ -12,10 +12,10 @@ import java.util.UUID;
 public class Card extends BaseModel{
 
     private UUID ownerId;
+    private  String cardNumber;
+    private String  category;
+    private double balance;
 
-    private UUID cardId;
-
-    private  Integer cardPassword;
 
 
 }
