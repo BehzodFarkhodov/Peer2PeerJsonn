@@ -1,161 +1,17 @@
 [ {
-  "id" : "2eca819c-a885-46ed-b6dc-7ce510d8768f",
-  "createdDate" : "06/05/2024 15:50:31",
+  "id" : "19fa5716-8757-4744-b24e-fe6827fe485f",
+  "createdDate" : "06/05/2024 16:59:10",
   "name" : "1",
   "username" : "1",
   "password" : "1",
   "role" : "ADMIN",
   "active" : true
 }, {
-  "id" : "6c28ae30-e00f-49a2-b2ae-9bffb8cbbe82",
-  "createdDate" : "06/05/2024 15:50:31",
+  "id" : "3a1e579d-94bb-4a13-b053-1cbfefb548c5",
+  "createdDate" : "06/05/2024 16:59:10",
   "name" : "2",
   "username" : "2",
   "password" : "2",
-  "role" : "USER",
-  "active" : true
-}, {
-  "id" : "9c0a83c3-aa8b-476d-9c81-e982ab341275",
-  "createdDate" : "06/05/2024 15:51:15",
-  "name" : "1",
-  "username" : "1",
-  "password" : "1",
-  "role" : "ADMIN",
-  "active" : true
-}, {
-  "id" : "22f88626-578b-4958-bbdf-9d12faf6c847",
-  "createdDate" : "06/05/2024 15:51:15",
-  "name" : "2",
-  "username" : "2",
-  "password" : "2",
-  "role" : "USER",
-  "active" : true
-}, {
-  "id" : "2b913738-cb21-45a0-bee4-416a6f3435ac",
-  "createdDate" : "06/05/2024 15:51:21",
-  "name" : "qwq",
-  "username" : "qwq",
-  "password" : "qwq",
-  "role" : "USER",
-  "active" : true
-}, {
-  "id" : "3912e0f8-b6d9-4e4b-aa8b-e236fddf892d",
-  "createdDate" : "06/05/2024 15:51:34",
-  "name" : "1",
-  "username" : "1",
-  "password" : "1",
-  "role" : "USER",
-  "active" : true
-}, {
-  "id" : "ab960271-629a-44b1-9227-7397d3b92605",
-  "createdDate" : "06/05/2024 15:52:50",
-  "name" : "qwq",
-  "username" : "qwq",
-  "password" : "qwq",
-  "role" : "USER",
-  "active" : true
-}, {
-  "id" : "5c0f472e-162f-426d-ba41-d9e67e2e6382",
-  "createdDate" : "06/05/2024 15:52:58",
-  "name" : "qwq",
-  "username" : "qwq",
-  "password" : "qwq",
-  "role" : "USER",
-  "active" : true
-}, {
-  "id" : "bc4704b3-2d5d-4564-bc56-e5a643dc55a8",
-  "createdDate" : "06/05/2024 15:53:12",
-  "name" : "1",
-  "username" : "1",
-  "password" : "1",
-  "role" : "ADMIN",
-  "active" : true
-}, {
-  "id" : "963612c1-1a09-4255-aacb-59793cc4fbd2",
-  "createdDate" : "06/05/2024 15:53:12",
-  "name" : "2",
-  "username" : "2",
-  "password" : "2",
-  "role" : "USER",
-  "active" : true
-}, {
-  "id" : "c8b3e0d9-9898-47f6-a07a-b5af689706af",
-  "createdDate" : "06/05/2024 15:53:36",
-  "name" : "1",
-  "username" : "1",
-  "password" : "1",
-  "role" : "ADMIN",
-  "active" : true
-}, {
-  "id" : "6e15891b-fc31-4847-a82f-7d55e20abe7b",
-  "createdDate" : "06/05/2024 15:53:36",
-  "name" : "2",
-  "username" : "2",
-  "password" : "2",
-  "role" : "USER",
-  "active" : true
-}, {
-  "id" : "29c93fcb-ac05-4164-b424-961ef335b5bb",
-  "createdDate" : "06/05/2024 15:54:48",
-  "name" : "1",
-  "username" : "1",
-  "password" : "1",
-  "role" : "ADMIN",
-  "active" : true
-}, {
-  "id" : "40c3ef40-641f-4c24-9b6c-88b60f70e9e9",
-  "createdDate" : "06/05/2024 15:54:48",
-  "name" : "2",
-  "username" : "2",
-  "password" : "2",
-  "role" : "USER",
-  "active" : true
-}, {
-  "id" : "fd00bf82-80ab-482c-bfac-f0d7d0575500",
-  "createdDate" : "06/05/2024 16:04:41",
-  "name" : "1",
-  "username" : "1",
-  "password" : "1",
-  "role" : "ADMIN",
-  "active" : true
-}, {
-  "id" : "70158461-3554-4da3-99ee-96eaa65608da",
-  "createdDate" : "06/05/2024 16:04:41",
-  "name" : "2",
-  "username" : "2",
-  "password" : "2",
-  "role" : "USER",
-  "active" : true
-}, {
-  "id" : "db892a05-e975-4a87-97eb-197f5f7eaab9",
-  "createdDate" : "06/05/2024 16:10:35",
-  "name" : "1",
-  "username" : "1",
-  "password" : "1",
-  "role" : "ADMIN",
-  "active" : true
-}, {
-  "id" : "75a8da87-3b4d-4c7c-b483-352ddf245d19",
-  "createdDate" : "06/05/2024 16:10:35",
-  "name" : "2",
-  "username" : "2",
-  "password" : "2",
-  "role" : "USER",
-  "active" : true
-}, {
-  "id" : "21aa31be-d704-4b0c-bcfa-3e6c61ef7f68",
-  "createdDate" : "06/05/2024 16:10:41",
-  "name" : "qwe",
-  "username" : "qwe",
-  "password" : "qwe",
-  "role" : "USER",
-  "active" : true
-}, {
-  "id" : "fc607c64-2d8a-44d6-a9f7-e7b4b3c887c2",
-  "createdDate" : "06/05/2024 16:10:50",
-  "name" : "1",
-  "username" : "1",
-  "password" : "1",
   "role" : "USER",
   "active" : true
 } ]

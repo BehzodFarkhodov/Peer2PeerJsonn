@@ -1,7 +1,8 @@
 package uz.pdp.controller;
 
-import uz.pdp.exception.DataNotFoundException;
-import uz.pdp.model.Role;
+
+import uz.pdp.enumerator.Role;
+
 import uz.pdp.model.User;
 import uz.pdp.util.Message;
 
@@ -17,7 +18,7 @@ public class UserController {
         String username = inputStr("Enter username :");
         String password = inputStr("Enter password :");
 
-        if (userService.add(new User(name,username,password,Role.USER))) {
+        if (userService.add(new User(name, username, password, Role.USER))) {
             System.out.println(Message.SUCCESSFULLY);
         } else {
             System.out.println();
@@ -25,27 +26,23 @@ public class UserController {
 
     }
 
-    public static void signIn() throws DataNotFoundException {
+
+    public static void signIn() {
+
         String username = inputStr("Enter username :");
         String password = inputStr("Enter password :");
 
         currentUser = userService.signIn(username, password);
+
         if (Objects.isNull(currentUser)) {
-            System.out.println("Wrong username or password");
-        } else if (currentUser.getRole().equals(Role.ADMIN)) {
-            AdminController.adminMenu();
+            System.out.println(Message.WRONG);
         } else if (currentUser.getRole().equals(Role.USER)) {
             userMenu();
-        }else {
-            System.out.println("Welcome "+currentUser.getUsername()+" 🫡");
+        } else if (currentUser.getRole().equals(Role.ADMIN)) {
+            Main.adminMenu();
         }
-
     }
 
-
-    public static void userMenu(){
-        System.out.println(" user ga kirdi  ");
-    }
 
 
 }

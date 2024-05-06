@@ -1,6 +1,5 @@
-package uz.pdp.model;
+package uz.pdp.enumerator;
 
 public enum Role {
-
     ADMIN,USER
 }
