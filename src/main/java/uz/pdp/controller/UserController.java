@@ -5,6 +5,8 @@ import uz.pdp.model.User;
 import uz.pdp.util.Message;
 
 
+import java.util.Objects;
+
 import static uz.pdp.controller.Main.*;
 
 public class UserController {
@@ -14,7 +16,7 @@ public class UserController {
         String username = inputStr("Enter username :");
         String password = inputStr("Enter password :");
 
-        if (userService.add(new User(name,username,password))) {
+        if (userService.add(new User(name,username,password,Role.USER))) {
             System.out.println(Message.SUCCESSFULLY);
         } else {
             System.out.println();
@@ -27,7 +29,7 @@ public class UserController {
         String password = inputStr("Enter password :");
 
         currentUser = userService.signIn(username, password);
-        if (currentUser==null) {
+        if (Objects.isNull(currentUser)) {
             System.out.println("Wrong username or password");
         } else if (currentUser.getRole().equals(Role.ADMIN)) {
             AdminController.adminMenu();
