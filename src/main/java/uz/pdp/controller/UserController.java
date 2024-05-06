@@ -33,16 +33,17 @@ public class UserController {
             System.out.println("Wrong username or password");
         } else if (currentUser.getRole().equals(Role.ADMIN)) {
             AdminController.adminMenu();
-        } else {
-            System.out.println("Welcome " + currentUser.getName()+" 🫡");
+        } else if (currentUser.getRole().equals(Role.USER)) {
             userMenu();
+        }else {
+            System.out.println("Welcome "+currentUser.getUsername()+" 🫡");
         }
 
     }
 
 
     public static void userMenu(){
-        System.out.println("user ");
+        System.out.println(" user ga kirdi  ");
     }
 
 
