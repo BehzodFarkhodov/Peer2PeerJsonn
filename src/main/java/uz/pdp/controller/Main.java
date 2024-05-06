@@ -16,6 +16,7 @@ public class Main {
     public static Scanner scannerInt = new Scanner(System.in);
     public static Scanner scannerStr = new Scanner(System.in);
 
+    public  static  Scanner scannerDouble = new Scanner(System.in);
     public static UserService userService = UserService.getInstance();
     public static CardService cardService = new CardService(new CardRepo());
     public static User currentUser= null;

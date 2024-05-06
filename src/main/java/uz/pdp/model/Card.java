@@ -1,6 +1,7 @@
 package uz.pdp.model;
 
 import lombok.*;
+import uz.pdp.enumerator.Category;
 
 import java.util.UUID;
 
@@ -13,9 +14,7 @@ public class Card extends BaseModel{
 
     private UUID ownerId;
     private  String cardNumber;
-    private String  category;
+    private Category category;
     private double balance;
-
-
 
 }
