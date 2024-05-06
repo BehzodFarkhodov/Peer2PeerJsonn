@@ -1,5 +1,6 @@
 package uz.pdp.controller;
 
+import uz.pdp.exception.DataNotFoundException;
 import uz.pdp.model.Role;
 import uz.pdp.model.User;
 import uz.pdp.util.Message;
@@ -24,7 +25,7 @@ public class UserController {
 
     }
 
-    public static void signIn() {
+    public static void signIn() throws DataNotFoundException {
         String username = inputStr("Enter username :");
         String password = inputStr("Enter password :");
 
