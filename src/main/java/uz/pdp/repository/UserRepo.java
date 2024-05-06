@@ -22,20 +22,15 @@ public class UserRepo extends BaseRepo<User> {
     }
 
 
-    public User findByUsername(String username) {
-        ArrayList<User> users = getAll();
-
-        User user1 = users.stream().filter((user -> user.getUsername().equals(username))).findAny().get();
-
-        if (Objects.isNull(user1)) {
-            try {
-                throw new DataNotFoundException("data not found ");
-            } catch (DataNotFoundException e) {
-                throw new RuntimeException(e);
+    public User findByUsername(String username){
+        for (User user : getAll()) {
+            if (user.getUsername().equals(username)){
+                return user;
             }
-
         }
-        return user1;
+        return null;
     }
+
+
 }
 
