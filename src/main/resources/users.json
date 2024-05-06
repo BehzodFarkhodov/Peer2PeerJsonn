@@ -78,4 +78,28 @@
   "password" : "2",
   "role" : "USER",
   "active" : true
+}, {
+  "id" : "ffd8561d-9f3e-4b38-b93d-c4a11e175dd5",
+  "createdDate" : "06/05/2024 15:32:30",
+  "name" : "1",
+  "username" : "1",
+  "password" : "1",
+  "role" : "ADMIN",
+  "active" : true
+}, {
+  "id" : "7f3ac69c-f386-4e82-b1c0-7bff084f16e5",
+  "createdDate" : "06/05/2024 15:32:30",
+  "name" : "2",
+  "username" : "2",
+  "password" : "2",
+  "role" : "USER",
+  "active" : true
+}, {
+  "id" : "46dee658-5f93-4519-b948-a3b326bf76cd",
+  "createdDate" : "06/05/2024 15:35:07",
+  "name" : "qwe",
+  "username" : "qwe",
+  "password" : "qwe",
+  "role" : null,
+  "active" : true
 } ]
