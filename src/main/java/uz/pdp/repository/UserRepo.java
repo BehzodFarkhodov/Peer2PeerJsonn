@@ -17,7 +17,7 @@ public class UserRepo extends BaseRepo<User> {
     }
 
     public UserRepo() {
-        super.path = "C:\\Users\\Victus\\IdeaProjects\\Peer2PeerJsonn\\src\\main\\resources\\users.json";
+        super.path = "src/main/resources/users.json";
         super.type = User.class;
     }
 

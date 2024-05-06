@@ -1,0 +1,9 @@
+[ {
+  "id" : "2a4d9636-5bd3-4323-a277-a70cd0afa803",
+  "createdDate" : "06/05/2024 17:35:55",
+  "ownerId" : "3a1e579d-94bb-4a13-b053-1cbfefb548c5",
+  "cardNumber" : "1234123412341234",
+  "category" : "HUMO",
+  "balance" : 60000.0,
+  "active" : true
+} ]

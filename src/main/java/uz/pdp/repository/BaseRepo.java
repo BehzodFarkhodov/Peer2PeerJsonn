@@ -37,13 +37,11 @@ public class BaseRepo<T extends BaseModel> {
     }
 
     public ArrayList<T> read() {
-
         try {
             return objectMapper.readValue(new File(path), TypeFactory.defaultInstance().constructCollectionType(ArrayList.class,type));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
 
