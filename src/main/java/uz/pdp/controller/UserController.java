@@ -1,6 +1,7 @@
 package uz.pdp.controller;
 
-import uz.pdp.enumerator.Role;
+
+import uz.pdp.model.Role;
 import uz.pdp.model.User;
 import uz.pdp.util.Message;
 
@@ -24,24 +25,26 @@ public class UserController {
 
     }
 
+
     public static void signIn() {
+
         String username = inputStr("Enter username :");
         String password = inputStr("Enter password :");
+
         currentUser = userService.signIn(username, password);
+
         if (Objects.isNull(currentUser)) {
-            System.out.println("Wrong username or password");
-        } else if (currentUser.getRole().equals(Role.ADMIN)) {
-            Main.adminMenu();
+            System.out.println(Message.WRONG);
         } else if (currentUser.getRole().equals(Role.USER)) {
             userMenu();
-        } else {
-            System.out.println("Welcome " + currentUser.getUsername() + " 🫡");
+        } else if (currentUser.getRole().equals(Role.ADMIN)) {
+            AdminController.adminMenu();
         }
-
     }
 
-
-
+    public static void userMenu() {
+        System.out.println(" user ga kirdi  ");
+    }
 
 
 }

@@ -1,7 +1,11 @@
 package uz.pdp.service;
 
+import uz.pdp.exception.DataNotFoundException;
 import uz.pdp.model.User;
 import uz.pdp.repository.UserRepo;
+
+import java.util.ArrayList;
+import java.util.Optional;
 
 
 public class UserService extends BaseService<User, UserRepo> {
@@ -18,20 +22,26 @@ public class UserService extends BaseService<User, UserRepo> {
     }
 
 
-    public User signIn(String username, String password) {
-
-        User username1 = repository.findByUsername(username);
-        if (username1.getPassword().equals(password)) {
-            return username1;
-        }
-        return null;
-
-
+    public User findByUsername(String username) {
+        return repository.findByUsername(username);
     }
 
 
+    public User signIn(String username, String password) {
+        User byUsername = repository.findByUsername(username);
+        if (byUsername.getPassword().equals(password)) {
+            return byUsername;
+        }
+        return null;
+    }
+
     @Override
     public boolean check(User user) {
+        for (User user1 : getAll()) {
+            if (user1.getUsername().equals(user.getUsername())){
+                return true;
+            }
+        }
         return false;
     }
 }
