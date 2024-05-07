@@ -16,18 +16,19 @@ public class Main {
     public static Scanner scannerInt = new Scanner(System.in);
     public static Scanner scannerStr = new Scanner(System.in);
 
-    public  static  Scanner scannerDouble = new Scanner(System.in);
+    public static Scanner scannerDouble = new Scanner(System.in);
     public static UserService userService = UserService.getInstance();
     public static CardService cardService = new CardService(new CardRepo());
-    public static User currentUser= null;
+    public static User currentUser = null;
 
     public static void main(String[] args) {
 
         mainMenu();
     }
+
     static {
-        userService.add(new User("1","1","1", Role.ADMIN));
-        userService.add(new User("2","2","2", Role.USER));
+        userService.add(new User("1", "1", "1", Role.ADMIN));
+        userService.add(new User("2", "2", "2", Role.USER));
     }
 
     private static void mainMenu() {
@@ -36,7 +37,7 @@ public class Main {
             String command = inputStr("Choose ->");
             switch (command) {
                 case "1" -> UserController.signUp();
-                case "2"->UserController.signIn();
+                case "2" -> UserController.signIn();
                 case "0" -> {
                     return;
                 }
@@ -68,9 +69,15 @@ public class Main {
             }
         }
     }
-    public static void adminMenu(){
-        while (true){
 
+    public static void adminMenu() {
+        while (true) {
+            System.out.println("1.See all transactions 2.Change comission 3. Top 5 users with Outcoming transactions 0.Exit");
+            System.out.print("Choise one -> ");
+            String ans = scannerStr.nextLine();
+            switch (ans){
+
+            }
         }
     }
 
@@ -83,4 +90,6 @@ public class Main {
         System.out.println(hint);
         return scannerStr.nextLine();
     }
+
+
 }
