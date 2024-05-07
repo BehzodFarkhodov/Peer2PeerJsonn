@@ -41,7 +41,7 @@ public class TransactionController {
         System.out.println("Enter the amount to send: ");
         double amount = scannerDouble.nextDouble();
 
-        double commission = TransactionService.calculateCommission(amount); // 1% komissiya
+        double commission = TransactionService.calculateCommission(amount);
         double totalAmount = amount + commission;
 
         System.out.println("Are you sure you want to send " + amount + " UZS to " + receiverCardNumber + " with a commission of " + commission + " UZS? (yes/no)");
@@ -105,7 +105,6 @@ public class TransactionController {
     }
 
     public static void currency() {
-
         try {
             ObjectMapper objectMapper = new ObjectMapper();
 
