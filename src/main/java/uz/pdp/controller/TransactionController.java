@@ -14,6 +14,7 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.UUID;
 
 import static uz.pdp.controller.Main.*;
@@ -108,7 +109,7 @@ public class TransactionController {
 
         while (true) {
             System.out.println("1 Sum to another Currency  \t 2 Another to Sum Currency  \t 0 ExT ");
-            String command = inputStr("Choose -> ");
+            String command = inputStr("Choose one  -> ");
             switch (command) {
                 case "1" -> currencySum();
                 case "2" -> currencyAnother();
@@ -135,9 +136,10 @@ public class TransactionController {
 
 
             Bank bank = banks.get(choose);
-            double enterSumma = inputInt("Choose Enter Summa :");
+            System.out.println("Choose Enter Summa :");
+            double summa = scannerDouble.nextDouble();
 
-            System.out.println(bank.getRate() / enterSumma);
+            System.out.println(bank.getRate() / summa);
 
 
         } catch (IOException e) {
@@ -160,7 +162,7 @@ public class TransactionController {
 
 
             Bank bank = banks.get(choose);
-            double enterSumma = inputInt("Choose Enter Summa :");
+            double enterSumma = inputDouble("Choose Enter Summa :");
 
             System.out.println(enterSumma / bank.getRate());
 

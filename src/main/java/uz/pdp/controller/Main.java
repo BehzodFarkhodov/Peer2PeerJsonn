@@ -5,6 +5,7 @@ import uz.pdp.model.User;
 import uz.pdp.repository.CardRepo;
 import uz.pdp.repository.TransactionRepo;
 import uz.pdp.service.CardService;
+import uz.pdp.service.CommissionService;
 import uz.pdp.service.TransactionService;
 import uz.pdp.service.UserService;
 import uz.pdp.util.Message;
@@ -26,6 +27,7 @@ public class Main {
     public static UserService userService = UserService.getInstance();
     public static CardService cardService = CardService.getInstance();
     public static TransactionService transactionService = new TransactionService(new TransactionRepo());
+    public static CommissionService commissionService = CommissionService.getInstance();
     public static User currentUser = null;
 
     public static void main(String[] args) {
@@ -37,7 +39,7 @@ public class Main {
         userService.add(new User("2", "2", "2", Role.USER));
     }
 
-    private static void mainMenu() {
+    static void mainMenu() {
         while (true) {
 
             System.out.println("1 ----> SIGN UP  |  2 ----> LOGIN   ");
@@ -88,7 +90,12 @@ public class Main {
     public static int inputInt(String hint) {
         System.out.println(hint);
         return scannerInt.nextInt();
-}
+    }
+
+    public static double inputDouble(String hint) {
+        System.out.println(hint);
+        return scannerDouble.nextDouble();
+    }
 
     public static String inputStr(String hint) {
         System.out.println(hint);
