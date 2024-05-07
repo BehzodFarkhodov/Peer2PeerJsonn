@@ -38,7 +38,6 @@ public class TransactionRepo extends BaseRepo<Transaction> {
         }
         return userTransactions;
     }
-
     public void addTransaction(UUID fromCard, UUID toCard, double amount) {
         Transaction transaction = new Transaction(fromCard, toCard, amount);
         add(transaction);

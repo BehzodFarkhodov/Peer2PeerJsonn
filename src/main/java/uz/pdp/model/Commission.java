@@ -11,7 +11,7 @@ import java.util.UUID;
 @Getter
 @Setter
 
-public class Comission extends BaseModel{
+public class Commission extends BaseModel{
     private UUID fromCard;
     private UUID toCard;
     private double percentage;
