@@ -9,11 +9,12 @@ import uz.pdp.service.UserService;
 import uz.pdp.util.Message;
 
 
-import javax.swing.event.ListDataEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.UUID;
 
 import static uz.pdp.controller.Main.*;
@@ -50,7 +51,9 @@ public class TransactionController {
             System.out.println("Transaction cancelled.");
             return;
         }
+
         transactionService.addTransaction(senderCard.getId(), receiverCard.getId(), totalAmount);
+
         transactionService.add(new Transaction(senderCard.getId(), receiverCard.getId(), amount));
     }
 
@@ -60,13 +63,13 @@ public class TransactionController {
             String command = scannerStr.nextLine();
             switch (command) {
                 case "1" -> {
-                  getAllTransactionUser(currentUser.getId());
+                    getAllTransactions();
                 }
                 case "2" -> {
-                  getAllInComeTransactions();
+                    getLastWeekTransactions();
                 }
                 case "3" -> {
-                 getAllOutcomeTransactions();
+
                 }
                 case "0" -> {
                     userMenu();
@@ -76,8 +79,6 @@ public class TransactionController {
                 }
             }
         }
-
-
 
 
     }
@@ -93,25 +94,27 @@ public class TransactionController {
         return all;
     }
 
-//    public static void getLastWeekTransactions() {
-//        List<Transaction> AllTransaction = transactionService.getAllTransactionsFromFile();
-//        List<Transaction> lastWeekTransactions = new ArrayList<>();
-//        LocalDateTime lastWeek = LocalDateTime.now().minusWeeks(1);
-//        for (Transaction transaction : AllTransaction) {
-//            if (transaction.getTransactionDate().isAfter(lastWeek)) {
-//                lastWeekTransactions.add(transaction);
-//            }
-//        }
-//    }
+    public static void getLastWeekTransactions() {
+        List<Transaction> AllTransaction = transactionService.getAllTransactionsFromFile();
+        List<Transaction> lastWeekTransactions = new ArrayList<>();
+        LocalDateTime lastWeek = LocalDateTime.now().minusWeeks(1);
+        for (Transaction transaction : AllTransaction) {
+            if (transaction.getCreatedDate()
+                    .isAfter(lastWeek)) {
+                lastWeekTransactions.add(transaction);
+            }
+        }
+    }
 
     public static void currency() {
+
         while (true) {
             System.out.println("1 Sum to another Currency  \t 2 Another to Sum Currency  \t 0 ExT ");
             String command = inputStr("Choose one  -> ");
             switch (command) {
                 case "1" -> currencySum();
                 case "2" -> currencyAnother();
-                case "0"->{
+                case "0" -> {
                     userMenu();
                 }
             }
@@ -131,6 +134,8 @@ public class TransactionController {
             }
 
             int choose = inputInt("Choose one Valuate ->") - 1;
+
+
             Bank bank = banks.get(choose);
             System.out.println("Choose Enter Summa :");
             double summa = scannerDouble.nextDouble();
@@ -146,48 +151,28 @@ public class TransactionController {
     private static void currencySum() {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
+
             ArrayList<Bank> banks = objectMapper.readValue(new URL("https://cbu.uz/uz/arkhiv-kursov-valyut/json/"), new TypeReference<ArrayList<Bank>>() {
             });
             int i = 1;
             for (Bank bank1 : banks) {
                 System.out.println(i++ + " ." + bank1);
             }
-            int choose = inputInt("Choose one Valuate ->") - 1;
+
+            System.out.println("Choose one Valuate ->");
+            int choose = scannerInt.nextInt() - 1;
+
+
             Bank bank = banks.get(choose);
             double enterSumma = inputDouble("Choose Enter Summa :");
 
             System.out.println(enterSumma / bank.getRate());
+
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-    public static void getAllInComeTransactions(){
-        List<Transaction> getAll = transactionService.getIncomeTransactions(currentUser.getId());
-
-        List<Transaction> getAllUserIncomeTrans = transactionService.getAllUserIncomeTransaction(currentUser.getId());
-        getAllUserIncomeTrans.stream().forEach(System.out::println);
-
-        getAll.forEach(System.out::println);
-    }
-
-    public static void getAllOutcomeTransactions(){
-        List<Transaction> getAll = transactionService.getOutcomeTransactions(currentUser.getId());
-
-        List<Transaction> getAllUserOutcomeTransaction = transactionService.getAllUserOutcomeTransaction(currentUser.getId());
-        getAllUserOutcomeTransaction.stream().forEach(System.out::println);
-    }
-
-    public static void getAllTransactionUser(UUID userId){
-        List<Transaction> getAll = transactionService.getAllUserTransactions(currentUser.getId());
-        getAll.stream().forEach(System.out::println);
-    }
-
-
-
-
-
-
-
 
 }
 

@@ -1,16 +1,14 @@
 [ {
   "id" : "5b3da1a4-092c-4486-a74f-4dc0d7b94256",
   "createdDate" : "06/05/2024 23:22:07",
-  "transactionDate" : null,
   "ownerId" : "3a1e579d-94bb-4a13-b053-1cbfefb548c5",
   "cardNumber" : "0000000000000000",
   "category" : "HUMO",
-  "balance" : 525610.0,
+  "balance" : 505410.0,
   "active" : false
 }, {
   "id" : "40b86985-9c8e-48ee-a888-cd19107c8a6b",
   "createdDate" : "06/05/2024 23:22:37",
-  "transactionDate" : null,
   "ownerId" : "e629ed61-1028-40b5-b015-cd139d969bb4",
   "cardNumber" : "1111111111111111",
   "category" : "HUMO",
@@ -19,46 +17,20 @@
 }, {
   "id" : "4f547063-f619-416f-b29d-47d58d8bd32b",
   "createdDate" : "07/05/2024 08:15:14",
-  "transactionDate" : null,
   "ownerId" : "3a1e579d-94bb-4a13-b053-1cbfefb548c5",
   "cardNumber" : "6666666666666666",
   "category" : "HUMO",
-  "balance" : 533590.0,
+  "balance" : 584090.0,
   "active" : true
 }, {
   "id" : "b7c7c624-3dc5-4dd6-baa6-fd6dc6e504ca",
   "createdDate" : "07/05/2024 08:18:42",
-  "transactionDate" : null,
   "ownerId" : "259b3126-414c-43ba-a846-7171481928cb",
   "cardNumber" : "9999999999999999",
   "category" : "UZCARD",
   "balance" : 90000.0,
   "active" : false
 }, {
-  "id" : "5392ad76-49ca-408c-b87a-9cbeca087ede",
-  "createdDate" : "07/05/2024 10:10:59",
-  "transactionDate" : null,
-  "ownerId" : "3a1e579d-94bb-4a13-b053-1cbfefb548c5",
-  "cardNumber" : "7777000077770000",
-  "category" : "VIZA",
-  "balance" : 75000.0,
-  "active" : false
-}, {
-  "id" : "e989d3ac-13c9-4ba5-be25-885e892d80c7",
-  "createdDate" : "27/04/2024 10:57:12",
-  "transactionDate" : null,
-  "ownerId" : "3a1e579d-94bb-4a13-b053-1cbfefb548c5",
-  "cardNumber" : "3333333333333333",
-  "category" : "HUMO",
-  "balance" : 1.10203E7,
-  "active" : true
-}, {
-  "id" : "98ea49a4-7b57-45d8-a916-bbb747f725dc",
-  "createdDate" : "27/04/2024 16:06:44",
-  "transactionDate" : null,
-  "ownerId" : "26748655-4f8b-49ea-bf9d-fbf8d1846ded",
-  "cardNumber" : "9090909090909090",
-  "category" : "HUMO",
-  "balance" : 120200.0,
+
   "active" : true
 } ]
