@@ -18,7 +18,7 @@ public class Main {
 
     public  static  Scanner scannerDouble = new Scanner(System.in);
     public static UserService userService = UserService.getInstance();
-    public static CardService cardService = new CardService(new CardRepo());
+    public static CardService cardService = CardService.getInstance();
     public static User currentUser= null;
 
     public static void main(String[] args) {
@@ -46,7 +46,7 @@ public class Main {
 
     public static void userMenu() {
         while (true) {
-            System.out.println("1 : Crud Card  2 : P2P  3 : History By Card  4 : Currency Info 5 : Exit");
+            System.out.println("1 : Crud Card  2 : P2P  3 : History By Card  4 : Currency Info 5 : 0 Exit");
             String command = scannerStr.nextLine();
             switch (command) {
                 case "1" -> {
@@ -62,6 +62,7 @@ public class Main {
 
                 }
                 case "0" -> {
+                    return;
 
                 }
 

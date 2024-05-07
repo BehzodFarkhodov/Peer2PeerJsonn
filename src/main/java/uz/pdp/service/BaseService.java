@@ -4,6 +4,7 @@ import uz.pdp.model.BaseModel;
 import uz.pdp.repository.BaseRepo;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public abstract class BaseService<T extends BaseModel, R extends BaseRepo<T>> {
 
@@ -19,6 +20,15 @@ public abstract class BaseService<T extends BaseModel, R extends BaseRepo<T>> {
         }
         repository.add(t);
         return true;
+    }
+
+
+    public ArrayList<T> getActive() {
+        return repository.getActive();
+    }
+
+    public void delete(UUID id) {
+        repository.delete(id);
     }
 
     public abstract boolean check(T t);

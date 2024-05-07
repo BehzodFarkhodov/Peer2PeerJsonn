@@ -20,13 +20,12 @@ public class CardRepo extends BaseRepo<Card> {
         super.type = Card.class;
     }
 
+
     public List<Card> getAllCard(UUID userId) {
-        ArrayList<Card> cards = getAll();
+
+        List<Card> cards = getActive();
         return cards.stream().filter(card -> card.getOwnerId().equals(userId)).toList();
     }
-
-
-
 
 
 }

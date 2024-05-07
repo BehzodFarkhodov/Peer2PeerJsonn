@@ -6,4 +6,36 @@
   "category" : "HUMO",
   "balance" : 60000.0,
   "active" : true
+}, {
+  "id" : "8aefa9f1-530e-46dc-87a7-83667f1e9eb6",
+  "createdDate" : "06/05/2024 17:49:18",
+  "ownerId" : "3a1e579d-94bb-4a13-b053-1cbfefb548c5",
+  "cardNumber" : "1234567891234567",
+  "category" : "HUMO",
+  "balance" : 123.0,
+  "active" : true
+}, {
+  "id" : "21b5c5b5-8e13-4b83-92f7-7d62de273db4",
+  "createdDate" : "06/05/2024 17:49:43",
+  "ownerId" : "3a1e579d-94bb-4a13-b053-1cbfefb548c5",
+  "cardNumber" : "1234567899876543",
+  "category" : "UZCARD",
+  "balance" : 12345.89,
+  "active" : true
+}, {
+  "id" : "83062fa5-4c5e-4a2c-b8bd-41e71888ff59",
+  "createdDate" : "06/05/2024 23:30:33",
+  "ownerId" : "3a1e579d-94bb-4a13-b053-1cbfefb548c5",
+  "cardNumber" : "1234567890098765",
+  "category" : "VIZA",
+  "balance" : 12.3,
+  "active" : true
+}, {
+  "id" : "72e9f754-66f3-482c-8723-1affdf35387f",
+  "createdDate" : "06/05/2024 23:42:14",
+  "ownerId" : "3a1e579d-94bb-4a13-b053-1cbfefb548c5",
+  "cardNumber" : "1111111111111111",
+  "category" : "VIZA",
+  "balance" : 12.44,
+  "active" : true
 } ]
