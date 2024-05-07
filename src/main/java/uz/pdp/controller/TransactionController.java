@@ -41,7 +41,7 @@ public class TransactionController {
         System.out.println("Enter the amount to send: ");
         double amount = scannerDouble.nextDouble();
 
-        double commission = TransactionService.calculateCommission(amount);
+        double commission = TransactionService.calculateCommission(amount); // 1% komissiya
         double totalAmount = amount + commission;
 
         System.out.println("Are you sure you want to send " + amount + " UZS to " + receiverCardNumber + " with a commission of " + commission + " UZS? (yes/no)");
@@ -105,6 +105,47 @@ public class TransactionController {
     }
 
     public static void currency() {
+
+        while (true) {
+            System.out.println("1 Sum to another Currency  \t 2 Another to Sum Currency  \t 0 ExT ");
+            String command = inputStr("Choose -> ");
+            switch (command) {
+                case "1" -> currencySum();
+                case "2" -> currencyAnother();
+                case "0"->{
+                    userMenu();
+                }
+            }
+        }
+
+    }
+
+    private static void currencyAnother() {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            ArrayList<Bank> banks = objectMapper.readValue(new URL("https://cbu.uz/uz/arkhiv-kursov-valyut/json/"), new TypeReference<ArrayList<Bank>>() {
+            });
+            int i = 1;
+            for (Bank bank1 : banks) {
+                System.out.println(i++ + " ." + bank1);
+            }
+
+            int choose = inputInt("Choose one Valuate ->") - 1;
+
+
+            Bank bank = banks.get(choose);
+            double enterSumma = inputInt("Choose Enter Summa :");
+
+            System.out.println(bank.getRate() / enterSumma);
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void currencySum() {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
 
