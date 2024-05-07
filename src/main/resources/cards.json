@@ -1,7 +1,6 @@
 [ {
   "id" : "5b3da1a4-092c-4486-a74f-4dc0d7b94256",
   "createdDate" : "06/05/2024 23:22:07",
-  "transactionDate" : null,
   "ownerId" : "3a1e579d-94bb-4a13-b053-1cbfefb548c5",
   "cardNumber" : "0000000000000000",
   "category" : "HUMO",
@@ -10,7 +9,6 @@
 }, {
   "id" : "40b86985-9c8e-48ee-a888-cd19107c8a6b",
   "createdDate" : "06/05/2024 23:22:37",
-  "transactionDate" : null,
   "ownerId" : "e629ed61-1028-40b5-b015-cd139d969bb4",
   "cardNumber" : "1111111111111111",
   "category" : "HUMO",
@@ -19,7 +17,6 @@
 }, {
   "id" : "4f547063-f619-416f-b29d-47d58d8bd32b",
   "createdDate" : "07/05/2024 08:15:14",
-  "transactionDate" : null,
   "ownerId" : "3a1e579d-94bb-4a13-b053-1cbfefb548c5",
   "cardNumber" : "6666666666666666",
   "category" : "HUMO",
@@ -28,10 +25,17 @@
 }, {
   "id" : "b7c7c624-3dc5-4dd6-baa6-fd6dc6e504ca",
   "createdDate" : "07/05/2024 08:18:42",
-  "transactionDate" : null,
   "ownerId" : "259b3126-414c-43ba-a846-7171481928cb",
   "cardNumber" : "9999999999999999",
   "category" : "UZCARD",
   "balance" : 90000.0,
   "active" : false
+}, {
+  "id" : "a422f792-d8e0-4067-af5e-c7c772e5b443",
+  "createdDate" : "07/05/2024 16:53:43",
+  "ownerId" : "16051a93-c498-4bc9-8234-1d94acf6aa6e",
+  "cardNumber" : "11111111111111112",
+  "category" : "UZCARD",
+  "balance" : 1111.0,
+  "active" : true
 } ]
