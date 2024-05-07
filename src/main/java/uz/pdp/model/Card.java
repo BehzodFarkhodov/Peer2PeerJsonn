@@ -16,5 +16,6 @@ public class Card extends BaseModel{
     private  String cardNumber;
     private Category category;
     private double balance;
+    private boolean isActive = true;
 
 }

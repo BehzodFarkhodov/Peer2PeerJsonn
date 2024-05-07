@@ -9,6 +9,7 @@ import uz.pdp.model.BaseModel;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.UUID;
 
 
 public class BaseRepo<T extends BaseModel> {
@@ -48,4 +49,16 @@ public class BaseRepo<T extends BaseModel> {
     public ArrayList<T> getAll() {
         return read();
     }
+    public boolean delete(UUID id) {
+        ArrayList<T> data = read();
+        for (T item : data) {
+            if (item.getId().equals(id)) {
+                item.setActive(false);
+                write(data);
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
