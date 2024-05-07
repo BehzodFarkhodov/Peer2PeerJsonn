@@ -22,9 +22,9 @@ public class UserRepo extends BaseRepo<User> {
     }
 
 
-    public User findByUsername(String username){
+    public User findByUsername(String username) {
         for (User user : getAll()) {
-            if (user.getUsername().equals(username)){
+            if (user.getUsername().equals(username)) {
                 return user;
             }
         }

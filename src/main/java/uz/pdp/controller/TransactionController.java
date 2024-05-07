@@ -94,7 +94,8 @@ public class TransactionController {
         List<Transaction> lastWeekTransactions = new ArrayList<>();
         LocalDateTime lastWeek = LocalDateTime.now().minusWeeks(1);
         for (Transaction transaction : AllTransaction) {
-            if (transaction.getTransactionDate().isAfter(lastWeek)) {
+            if (transaction.getCreatedDate()
+                    .isAfter(lastWeek)) {
                 lastWeekTransactions.add(transaction);
             }
         }
