@@ -34,4 +34,13 @@
   "category" : "UZCARD",
   "balance" : 90000.0,
   "active" : false
+}, {
+  "id" : "5392ad76-49ca-408c-b87a-9cbeca087ede",
+  "createdDate" : "07/05/2024 10:10:59",
+  "transactionDate" : null,
+  "ownerId" : "3a1e579d-94bb-4a13-b053-1cbfefb548c5",
+  "cardNumber" : "7777000077770000",
+  "category" : "VIZA",
+  "balance" : 75000.0,
+  "active" : false
 } ]

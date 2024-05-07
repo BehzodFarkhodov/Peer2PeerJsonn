@@ -1,7 +1,6 @@
 [ {
   "id" : "19fa5716-8757-4744-b24e-fe6827fe485f",
   "createdDate" : "06/05/2024 16:59:10",
-  "transactionDate" : null,
   "name" : "1",
   "username" : "1",
   "password" : "1",
@@ -10,7 +9,6 @@
 }, {
   "id" : "3a1e579d-94bb-4a13-b053-1cbfefb548c5",
   "createdDate" : "06/05/2024 16:59:10",
-  "transactionDate" : null,
   "name" : "2",
   "username" : "2",
   "password" : "2",
@@ -19,7 +17,6 @@
 }, {
   "id" : "927a5bb5-5a63-432e-8656-19e619f7270e",
   "createdDate" : "06/05/2024 21:20:07",
-  "transactionDate" : null,
   "name" : "qwe",
   "username" : "qwe",
   "password" : "qwe",
@@ -28,7 +25,6 @@
 }, {
   "id" : "26748655-4f8b-49ea-bf9d-fbf8d1846ded",
   "createdDate" : "06/05/2024 23:13:03",
-  "transactionDate" : null,
   "name" : "asd",
   "username" : "asd",
   "password" : "asd",
@@ -37,7 +33,6 @@
 }, {
   "id" : "e629ed61-1028-40b5-b015-cd139d969bb4",
   "createdDate" : "06/05/2024 23:22:19",
-  "transactionDate" : null,
   "name" : "4",
   "username" : "4",
   "password" : "4",
@@ -46,10 +41,17 @@
 }, {
   "id" : "259b3126-414c-43ba-a846-7171481928cb",
   "createdDate" : "07/05/2024 08:18:16",
-  "transactionDate" : null,
   "name" : "zzz",
   "username" : "zzz",
   "password" : "zzz",
+  "role" : "USER",
+  "active" : true
+}, {
+  "id" : "f0665448-52a5-465e-a2ac-6584229ec08d",
+  "createdDate" : "07/05/2024 10:04:28",
+  "name" : "dfg",
+  "username" : "dfg",
+  "password" : "dfg",
   "role" : "USER",
   "active" : true
 } ]
