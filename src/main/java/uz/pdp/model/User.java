@@ -1,5 +1,6 @@
 package uz.pdp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import uz.pdp.enumerator.Role;
 
@@ -10,6 +11,8 @@ import uz.pdp.enumerator.Role;
 @NoArgsConstructor
 @ToString
 @Builder
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User extends BaseModel {
 
     private String name;

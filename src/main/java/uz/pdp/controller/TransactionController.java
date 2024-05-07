@@ -49,7 +49,6 @@ public class TransactionController {
 
         transactionService.addTransaction(senderCard.getId(),receiverCard.getId(),totalAmount);
 
-
         transactionService.add(new Transaction(senderCard.getId(), receiverCard.getId(), amount));
     }
 
@@ -78,6 +77,7 @@ public class TransactionController {
 
 
     }
+
     public static List<Transaction> getAllTransactions(){
         List<Transaction> all = transactionService.getAllTransactionsFromFile();
         all.forEach(transaction -> {
