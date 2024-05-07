@@ -4,54 +4,31 @@ import uz.pdp.enumerator.Category;
 import uz.pdp.model.Card;
 import uz.pdp.util.Message;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
+import javax.swing.*;
 import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 import static uz.pdp.controller.Main.*;
 
 public class CardController {
     public static void crudCard() {
-        System.out.println(" 1 : Create card \t 2 : Delete Card\t  3 Show Card \t 0 : Exit  ");
-        String command = scannerStr.nextLine();
-        switch (command) {
-            case "1" -> createCard();
-            case "2" -> deleteCard();
-            case "3" -> showCard();
-
+        while (true) {
+            System.out.println("1 ---> CREATE CARD  |  2 --->  ShOW CARDS  |  3 ---> DELETE CARD  |  0 --->  EXIT ");
+            String command = scannerStr.nextLine();
+            switch (command) {
+                case "1" -> {
+                    createCard();
+                }
+                case "2" -> {
+                    showCards();
+                }
+                case "3" -> {
+                    deleteCard();
+                }
+                case "0" -> {
+                    userMenu();
+                }
+            }
         }
-
-    }
-
-    private static void deleteCard() {
-        List<Card> cards = showCard();
-
-        try {
-            int choose = inputInt("Choose for Delete ->") - 1;
-            cardService.delete(cards.get(choose).getId());
-            System.out.println(Message.DELETE);
-        } catch (InputMismatchException | IndexOutOfBoundsException e) {
-            System.out.println(e.getMessage());
-        }
-
-    }
-
-    private static List<Card> showCard() {
-        List<Card> allCard = cardService.getAllCard(currentUser.getId());
-
-        AtomicInteger index = new AtomicInteger(1);
-
-        allCard.stream()
-                .map((card -> index.getAndIncrement() + ". " + card.toString()))
-                .forEach(System.out::println);
-        return allCard;
-
-
-
-
     }
 
     private static void createCard() {
@@ -66,12 +43,12 @@ public class CardController {
         if (number.length() != 16) {
             System.out.println(Message.WRONG);
         }
-        cardService.add(new Card(currentUser.getId(), number, category, balance));
+        cardService.add(new Card(currentUser.getId(), number, category, balance, true));
         System.out.println(Message.SUCCESSFULLY);
     }
 
     public static Category getCategory() {
-        System.out.println(" 1 : HUMO  2 : UZCARD 3 : VIZA  0 : EXIT ");
+        System.out.println("1 --->  HUMO  |   2 --->  UZCARD   | 3 --->  VIZA  |   0 --->  EXIT ");
         String choice = scannerStr.nextLine();
         Category category = null;
         switch (choice) {
@@ -92,7 +69,41 @@ public class CardController {
         return category;
     }
 
-   /* private static void accept(Card card) {
-        (Card::toString);
-    }*/
+    public static List<Card> showCards() {
+        List<Card> cards = cardService.getAllCard(currentUser.getId());
+        if (cards.isEmpty()) {
+            System.out.println(Message.NOTFOUND);
+        } else {
+            for (Card card : cards) {
+                System.out.println("Card Number: " + card.getCardNumber());
+                System.out.println("Card Type: " + card.getCategory());
+                System.out.println("Balance: " + card.getBalance());
+                System.out.println("------------------------");
+            }
+        }
+        return cards;
+    }
+
+    public static void deleteCard() {
+        List<Card> cards = showCards();
+        int i = 1;
+        for (Card card : cards) {
+            System.out.println(i++ + "." + card.getCardNumber() + " | " + card.getBalance() + " | " + card.getCategory());
+        }
+        System.out.println("Choose one : ");
+        int choice = scannerInt.nextInt() - 1;
+        if ((choice >= cards.size())) {
+            System.out.println(Message.WRONG);
+        } else {
+            cardService.delete(cards.get(choice).getId());
+            System.out.println(Message.DELETE);
+        }
+
+
+    }
+    public static void currencyInfo(){
+
+    }
 }
+
+

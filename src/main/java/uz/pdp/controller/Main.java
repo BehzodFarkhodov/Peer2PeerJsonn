@@ -3,12 +3,18 @@ package uz.pdp.controller;
 import uz.pdp.enumerator.Role;
 import uz.pdp.model.User;
 import uz.pdp.repository.CardRepo;
+import uz.pdp.repository.TransactionRepo;
 import uz.pdp.service.CardService;
+import uz.pdp.service.TransactionService;
 import uz.pdp.service.UserService;
+import uz.pdp.util.Message;
 
 import java.util.Scanner;
 
 import static uz.pdp.controller.CardController.crudCard;
+import static uz.pdp.controller.CardController.deleteCard;
+import static uz.pdp.controller.UserController.signIn;
+import static uz.pdp.controller.UserController.signUp;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -18,11 +24,11 @@ public class Main {
 
     public  static  Scanner scannerDouble = new Scanner(System.in);
     public static UserService userService = UserService.getInstance();
-    public static CardService cardService = CardService.getInstance();
+    public static CardService cardService = new CardService(new CardRepo());
+    public static TransactionService transactionService = new TransactionService(new TransactionRepo());
     public static User currentUser= null;
 
     public static void main(String[] args) {
-
         mainMenu();
     }
     static {
@@ -31,49 +37,53 @@ public class Main {
     }
 
     private static void mainMenu() {
-        while (true) {
-            System.out.println("1 SignUp \t 2 SignIn \t 0 Ext");
-            String command = inputStr("Choose ->");
-            switch (command) {
-                case "1" -> UserController.signUp();
-                case "2"->UserController.signIn();
-                case "0" -> {
-                    return;
-                }
-            }
-        }
+       while (true){
+
+           System.out.println("1 ----> SIGN UP  |  2 ----> LOGIN   ");
+           String command = scannerStr.nextLine();
+           switch (command){
+               case "1" ->{
+                   signUp();}
+               case "2" ->{
+                   signIn();
+               }
+               default -> {
+                   System.out.println(Message.WRONG);
+               }
+           }
+       }
     }
 
     public static void userMenu() {
         while (true) {
-            System.out.println("1 : Crud Card  2 : P2P  3 : History By Card  4 : Currency Info 5 : 0 Exit");
+            System.out.println("1 ---> CRUD CARD  | 2 --->  P2P  | 3 ---> HISTORY CARD  |  4 --->  CURRENCY INFO  | 0 --->  EXIT");
             String command = scannerStr.nextLine();
             switch (command) {
                 case "1" -> {
                     crudCard();
                 }
                 case "2" -> {
-
+                      TransactionController.peerToPeer(currentUser.getId());
                 }
                 case "3" -> {
-
+                         TransactionController.transactionsHistory();
                 }
                 case "4" -> {
 
                 }
                 case "0" -> {
-                    return;
-
+                mainMenu();
                 }
 
             }
         }
     }
-    public static void adminMenu(){
-        while (true){
 
-        }
+    public static void adminMenu(){
+        System.out.println("1 ---> ADMIN MENU ");
     }
+
+
 
     public static int inputInt(String hint) {
         System.out.println(hint);

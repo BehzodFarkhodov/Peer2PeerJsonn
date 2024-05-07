@@ -8,15 +8,21 @@ import uz.pdp.util.Message;
 
 
 import java.util.Objects;
+import java.util.SortedMap;
 
 import static uz.pdp.controller.Main.*;
 
 public class UserController {
 
     public static void signUp() {
-        String name = inputStr("Enter name :");
-        String username = inputStr("Enter username :");
-        String password = inputStr("Enter password :");
+        System.out.print("Enter the name : ");
+        String name =scannerStr.nextLine();
+
+        System.out.print("Enter the username : ");
+        String username = scannerStr.nextLine();
+
+        System.out.print("Enter the password : ");
+        String password = scannerStr.nextLine();
 
         if (userService.add(new User(name, username, password, Role.USER))) {
             System.out.println(Message.SUCCESSFULLY);
@@ -28,18 +34,19 @@ public class UserController {
 
 
     public static void signIn() {
+        System.out.print("Enter the username : ");
+        String username = scannerStr.nextLine();
 
-        String username = inputStr("Enter username :");
-        String password = inputStr("Enter password :");
+        System.out.print("Enter the password : ");
+        String password = scannerStr.nextLine();
 
         currentUser = userService.signIn(username, password);
-
         if (Objects.isNull(currentUser)) {
             System.out.println(Message.WRONG);
         } else if (currentUser.getRole().equals(Role.USER)) {
             userMenu();
         } else if (currentUser.getRole().equals(Role.ADMIN)) {
-            Main.adminMenu();
+              Main.adminMenu();
         }
     }
 

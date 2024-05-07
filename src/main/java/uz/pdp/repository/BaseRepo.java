@@ -71,4 +71,16 @@ public class BaseRepo<T extends BaseModel> {
     public ArrayList<T> getAll() {
         return read();
     }
+    public boolean delete(UUID id) {
+        ArrayList<T> data = read();
+        for (T item : data) {
+            if (item.getId().equals(id)) {
+                item.setActive(false);
+                write(data);
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
