@@ -7,6 +7,7 @@ import uz.pdp.model.Transaction;
 import uz.pdp.model.User;
 import uz.pdp.service.TransactionService;
 import uz.pdp.util.Message;
+import static uz.pdp.controller.Main.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,16 +30,59 @@ public class TransactionRepo extends BaseRepo<Transaction> {
         super.type = Transaction.class;
     }
 
-    public List<Transaction> getUserTransactions(UUID userId) {
-        List<Transaction> allTransactions = getAll();
+    public List<Transaction> getAllUserTransactions(UUID userId) {
+        List<Transaction> allTrans = getAll();
         List<Transaction> userTransactions = new ArrayList<>();
-        for (Transaction transaction : allTransactions) {
-            if (transaction.getFromCard().equals(userId)) {
-                userTransactions.add(transaction);
+
+        List<Card> allCards  =  cardService.getAllCard(currentUser.getId());
+
+        for (Card card : allCards) {
+            for (Transaction transaction : allTrans) {
+                if(transaction.getFromCard().equals(card.getId()) || transaction.getToCard().equals(card.getId())){
+                    userTransactions.add(transaction);
+                }
             }
         }
         return userTransactions;
     }
+
+
+
+    public List<Transaction> getAllUserIncomeTransactions(UUID userId) {
+        List<Transaction> allTrans = getAll();
+        List<Transaction> userTransactions = new ArrayList<>();
+
+        List<Card> allCards  =  cardService.getAllCard(currentUser.getId());
+
+        for (Card card : allCards) {
+            for (Transaction transaction : allTrans) {
+                if(transaction.getToCard().equals(card.getId())){
+                    userTransactions.add(transaction);
+                }
+            }
+        }
+        return userTransactions;
+    }
+
+    public List<Transaction> getAllUserOutComeTransactions(UUID userId) {
+        List<Transaction> allTrans = getAll();
+        List<Transaction> userTransactions = new ArrayList<>();
+
+        List<Card> allCards  =  cardService.getAllCard(currentUser.getId());
+
+        for (Card card : allCards) {
+            for (Transaction transaction : allTrans) {
+                if(transaction.getFromCard().equals(card.getId())){
+                    userTransactions.add(transaction);
+                }
+            }
+        }
+        return userTransactions;
+    }
+
+
+
+
     public void addTransaction(UUID fromCard, UUID toCard, double amount) {
         Transaction transaction = new Transaction(fromCard, toCard, amount);
         add(transaction);
@@ -90,7 +134,7 @@ public class TransactionRepo extends BaseRepo<Transaction> {
 
 
     public List<Transaction> getUserTransactionsInPeriod(UUID userId, LocalDateTime date1, LocalDateTime date2) {
-        List<Transaction> transactions = getUserTransactions(userId);
+        List<Transaction> transactions = getAllUserTransactions(userId);
         return transactions.stream().filter(transaction -> transaction.getCreatedDate().isAfter(date1) &&
                 transaction.getCreatedDate().isBefore(date2)).toList();
     }
