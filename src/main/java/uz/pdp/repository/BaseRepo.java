@@ -29,16 +29,6 @@ public class BaseRepo<T extends BaseModel> {
     }
 
 
-    public void delete(UUID id) {
-        ArrayList<T> ts = read();
-        for (T t : ts) {
-            if (t.getId().equals(id)) {
-                t.setActive(false);
-                return;
-            }
-        }
-
-    }
 
 
     public ArrayList<T> getActive() {
@@ -71,16 +61,17 @@ public class BaseRepo<T extends BaseModel> {
     public ArrayList<T> getAll() {
         return read();
     }
-    public boolean delete(UUID id) {
+
+
+    public void delete(UUID id) {
         ArrayList<T> data = read();
         for (T item : data) {
             if (item.getId().equals(id)) {
                 item.setActive(false);
                 write(data);
-                return true;
+                return;
             }
         }
-        return false;
     }
 
 }
