@@ -5,6 +5,7 @@ import uz.pdp.model.User;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.UUID;
 
 public class UserRepo extends BaseRepo<User> {
 
@@ -20,6 +21,7 @@ public class UserRepo extends BaseRepo<User> {
         super.path = "src/main/resources/users.json";
         super.type = User.class;
     }
+
 
 
     public User findByUsername(String username){

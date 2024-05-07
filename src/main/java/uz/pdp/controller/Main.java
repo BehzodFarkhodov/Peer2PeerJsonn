@@ -22,36 +22,38 @@ public class Main {
     public static Scanner scannerInt = new Scanner(System.in);
     public static Scanner scannerStr = new Scanner(System.in);
 
-    public  static  Scanner scannerDouble = new Scanner(System.in);
+    public static Scanner scannerDouble = new Scanner(System.in);
     public static UserService userService = UserService.getInstance();
-    public static CardService cardService = new CardService(new CardRepo());
+    public static CardService cardService = CardService.getInstance();
     public static TransactionService transactionService = new TransactionService(new TransactionRepo());
-    public static User currentUser= null;
+    public static User currentUser = null;
 
     public static void main(String[] args) {
         mainMenu();
     }
+
     static {
-        userService.add(new User("1","1","1", Role.ADMIN));
-        userService.add(new User("2","2","2", Role.USER));
+        userService.add(new User("1", "1", "1", Role.ADMIN));
+        userService.add(new User("2", "2", "2", Role.USER));
     }
 
     private static void mainMenu() {
-       while (true){
+        while (true) {
 
-           System.out.println("1 ----> SIGN UP  |  2 ----> LOGIN   ");
-           String command = scannerStr.nextLine();
-           switch (command){
-               case "1" ->{
-                   signUp();}
-               case "2" ->{
-                   signIn();
-               }
-               default -> {
-                   System.out.println(Message.WRONG);
-               }
-           }
-       }
+            System.out.println("1 ----> SIGN UP  |  2 ----> LOGIN   ");
+            String command = scannerStr.nextLine();
+            switch (command) {
+                case "1" -> {
+                    signUp();
+                }
+                case "2" -> {
+                    signIn();
+                }
+                default -> {
+                    System.out.println(Message.WRONG);
+                }
+            }
+        }
     }
 
     public static void userMenu() {
@@ -63,23 +65,23 @@ public class Main {
                     crudCard();
                 }
                 case "2" -> {
-                      TransactionController.peerToPeer(currentUser.getId());
+                    TransactionController.peerToPeer(currentUser.getId());
                 }
                 case "3" -> {
-                         TransactionController.transactionsHistory();
+                    TransactionController.transactionsHistory();
                 }
                 case "4" -> {
-
+                    TransactionController.currency();
                 }
                 case "0" -> {
-                mainMenu();
+                    mainMenu();
                 }
 
             }
         }
     }
 
-    public static void adminMenu(){
+    public static void adminMenu() {
         System.out.println("1 ---> ADMIN MENU ");
     }
 

@@ -1,5 +1,7 @@
 package uz.pdp.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import uz.pdp.model.Card;
 import uz.pdp.model.Transaction;
 import uz.pdp.service.TransactionService;
@@ -7,6 +9,8 @@ import uz.pdp.service.UserService;
 import uz.pdp.util.Message;
 
 
+import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +51,8 @@ public class TransactionController {
             return;
         }
 
-        transactionService.addTransaction(senderCard.getId(),receiverCard.getId(),totalAmount);
+        transactionService.addTransaction(senderCard.getId(), receiverCard.getId(), totalAmount);
+
         transactionService.add(new Transaction(senderCard.getId(), receiverCard.getId(), amount));
     }
 
@@ -57,15 +62,15 @@ public class TransactionController {
             String command = scannerStr.nextLine();
             switch (command) {
                 case "1" -> {
-                  getAllTransactions();
+                    getAllTransactions();
                 }
                 case "2" -> {
-                  incomeTransactionHistory();
+                    getLastWeekTransactions();
                 }
                 case "3" -> {
-                 outcomeTransactionHistory();
+
                 }
-                case "0" ->{
+                case "0" -> {
                     userMenu();
                 }
                 default -> {
@@ -73,21 +78,11 @@ public class TransactionController {
                 }
             }
         }
+
+
     }
 
-    public static void  incomeTransactionHistory(){
-        System.out.println("qwert");
-        getLastWeekTransactions();
-    }
-
-    public static void outcomeTransactionHistory(){
-        System.out.println("qwerty");
-    }
-
-
-
-
-    public static List<Transaction> getAllTransactions(){
+    public static List<Transaction> getAllTransactions() {
         List<Transaction> all = transactionService.getAllTransactionsFromFile();
         all.forEach(transaction -> {
             System.out.println("From Card: " + transaction.getFromCard());
@@ -98,16 +93,41 @@ public class TransactionController {
         return all;
     }
 
-    public static List<Transaction> getLastWeekTransactions() {
-        List<Transaction> AllTransaction = transactionService.getUserTransactions(currentUser.getId());
+    public static void getLastWeekTransactions() {
+        List<Transaction> AllTransaction = transactionService.getAllTransactionsFromFile();
         List<Transaction> lastWeekTransactions = new ArrayList<>();
         LocalDateTime lastWeek = LocalDateTime.now().minusWeeks(1);
         for (Transaction transaction : AllTransaction) {
-            if (transaction.getCreatedDate().isAfter(lastWeek)) {
+            if (transaction.getTransactionDate().isAfter(lastWeek)) {
                 lastWeekTransactions.add(transaction);
             }
         }
-        return lastWeekTransactions;
+    }
+
+    public static void currency() {
+
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            ArrayList<Bank> banks = objectMapper.readValue(new URL("https://cbu.uz/uz/arkhiv-kursov-valyut/json/"), new TypeReference<ArrayList<Bank>>() {
+            });
+            int i = 1;
+            for (Bank bank1 : banks) {
+                System.out.println(i++ + " ." + bank1);
+            }
+
+            int choose = inputInt("Choose one Valuate ->") - 1;
+
+
+            Bank bank = banks.get(choose);
+            double enterSumma = inputInt("Choose Enter Summa :");
+
+            System.out.println(enterSumma / bank.getRate());
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

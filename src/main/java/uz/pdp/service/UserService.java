@@ -27,6 +27,8 @@ public class UserService extends BaseService<User, UserRepo> {
     }
 
 
+
+
     public User signIn(String username, String password) {
         User byUsername = repository.findByUsername(username);
         if (byUsername.getPassword().equals(password)) {
