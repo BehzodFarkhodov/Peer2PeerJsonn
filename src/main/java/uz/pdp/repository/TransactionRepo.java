@@ -4,11 +4,15 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import uz.pdp.model.Card;
 import uz.pdp.model.Transaction;
+import uz.pdp.model.User;
+import uz.pdp.service.TransactionService;
 import uz.pdp.util.Message;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -57,7 +61,8 @@ public class TransactionRepo extends BaseRepo<Transaction> {
         List<Transaction> transactions = new ArrayList<>();
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            transactions = objectMapper.readValue(new File(path), new TypeReference<List<Transaction>>() {});
+            transactions = objectMapper.readValue(new File(path), new TypeReference<List<Transaction>>() {
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -65,7 +70,9 @@ public class TransactionRepo extends BaseRepo<Transaction> {
     }
 
 
-
-
-
+    public List<Transaction> getUserTransactionsInPeriod(UUID userId, LocalDateTime date1, LocalDateTime date2) {
+        List<Transaction> transactions = getUserTransactions(userId);
+        return transactions.stream().filter(transaction -> transaction.getCreatedDate().isAfter(date1) &&
+                transaction.getCreatedDate().isBefore(date2)).toList();
+    }
 }

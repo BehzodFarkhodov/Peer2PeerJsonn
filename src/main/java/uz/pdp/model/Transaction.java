@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -18,11 +19,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Transaction extends BaseModel{
+public class Transaction extends BaseModel {
     private UUID fromCard;
     private UUID toCard;
     private double amount;
-
 
 
 

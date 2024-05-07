@@ -1,5 +1,6 @@
 package uz.pdp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import uz.pdp.enumerator.Category;
 
@@ -10,6 +11,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Card extends BaseModel{
 
     private UUID ownerId;

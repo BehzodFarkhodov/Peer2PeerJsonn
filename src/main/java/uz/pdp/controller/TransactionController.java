@@ -99,7 +99,8 @@ public class TransactionController {
         List<Transaction> lastWeekTransactions = new ArrayList<>();
         LocalDateTime lastWeek = LocalDateTime.now().minusWeeks(1);
         for (Transaction transaction : AllTransaction) {
-            if (transaction.getTransactionDate().isAfter(lastWeek)) {
+            if (transaction.getCreatedDate()
+                    .isAfter(lastWeek)) {
                 lastWeekTransactions.add(transaction);
             }
         }
@@ -113,7 +114,7 @@ public class TransactionController {
             switch (command) {
                 case "1" -> currencySum();
                 case "2" -> currencyAnother();
-                case "0"->{
+                case "0" -> {
                     userMenu();
                 }
             }
@@ -158,7 +159,8 @@ public class TransactionController {
                 System.out.println(i++ + " ." + bank1);
             }
 
-            int choose = inputInt("Choose one Valuate ->") - 1;
+            System.out.println("Choose one Valuate ->");
+            int choose = scannerInt.nextInt() - 1;
 
 
             Bank bank = banks.get(choose);
