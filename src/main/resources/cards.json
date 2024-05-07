@@ -5,7 +5,7 @@
   "ownerId" : "3a1e579d-94bb-4a13-b053-1cbfefb548c5",
   "cardNumber" : "0000000000000000",
   "category" : "HUMO",
-  "balance" : 505410.0,
+  "balance" : 525610.0,
   "active" : false
 }, {
   "id" : "40b86985-9c8e-48ee-a888-cd19107c8a6b",
@@ -23,7 +23,7 @@
   "ownerId" : "3a1e579d-94bb-4a13-b053-1cbfefb548c5",
   "cardNumber" : "6666666666666666",
   "category" : "HUMO",
-  "balance" : 584090.0,
+  "balance" : 533590.0,
   "active" : true
 }, {
   "id" : "b7c7c624-3dc5-4dd6-baa6-fd6dc6e504ca",
@@ -50,6 +50,15 @@
   "ownerId" : "3a1e579d-94bb-4a13-b053-1cbfefb548c5",
   "cardNumber" : "3333333333333333",
   "category" : "HUMO",
-  "balance" : 1.10102E7,
+  "balance" : 1.10203E7,
+  "active" : true
+}, {
+  "id" : "98ea49a4-7b57-45d8-a916-bbb747f725dc",
+  "createdDate" : "27/04/2024 16:06:44",
+  "transactionDate" : null,
+  "ownerId" : "26748655-4f8b-49ea-bf9d-fbf8d1846ded",
+  "cardNumber" : "9090909090909090",
+  "category" : "HUMO",
+  "balance" : 120200.0,
   "active" : true
 } ]

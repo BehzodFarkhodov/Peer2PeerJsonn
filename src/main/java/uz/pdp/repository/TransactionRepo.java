@@ -8,10 +8,12 @@ import uz.pdp.util.Message;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class TransactionRepo extends BaseRepo<Transaction> {
     private static final TransactionRepo transactionRepo = new TransactionRepo();
@@ -19,11 +21,11 @@ public class TransactionRepo extends BaseRepo<Transaction> {
     public static TransactionRepo getInstance() {
         return transactionRepo;
     }
-
     public TransactionRepo() {
         super.path = "src/main/resources/transaction.json";
         super.type = Transaction.class;
     }
+
     public List<Transaction> getUserTransactions(UUID userId) {
         List<Transaction> allTransactions = getAll();
         List<Transaction> userTransactions = new ArrayList<>();
@@ -51,8 +53,6 @@ public class TransactionRepo extends BaseRepo<Transaction> {
             System.out.println(Message.WRONG);
         }
     }
-
-
     public List<Transaction> getAllTransactionsFromFile() {
         List<Transaction> transactions = new ArrayList<>();
         try {
@@ -63,6 +63,26 @@ public class TransactionRepo extends BaseRepo<Transaction> {
         }
         return transactions;
     }
+
+    public List<Transaction> getOutcomeTransactions(UUID id){
+        ArrayList<Transaction> transactions = getAll();
+        return transactions.stream().filter(transaction -> transaction.getFromCard().equals(id)).toList();
+    }
+    public List<Transaction> getIncomeTransactions(UUID id){
+        ArrayList<Transaction> transactions = getAll();
+        return transactions.stream().filter(transaction -> transaction.getToCard().equals(id)).collect(Collectors.toList());
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
