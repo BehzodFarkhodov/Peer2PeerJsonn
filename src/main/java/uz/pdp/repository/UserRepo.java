@@ -5,6 +5,7 @@ import uz.pdp.model.User;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.UUID;
 
 public class UserRepo extends BaseRepo<User> {
 
@@ -22,7 +23,8 @@ public class UserRepo extends BaseRepo<User> {
     }
 
 
-    public User findByUsername(String username) {
+
+    public User findByUsername(String username){
         for (User user : getAll()) {
             if (user.getUsername().equals(username)) {
                 return user;
