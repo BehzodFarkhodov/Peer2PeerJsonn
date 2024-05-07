@@ -98,12 +98,8 @@ public class CardController {
             cardService.delete(cards.get(choice).getId());
             System.out.println(Message.DELETE);
         }
-
-
     }
-    public static void currencyInfo(){
 
-    }
 }
 
 

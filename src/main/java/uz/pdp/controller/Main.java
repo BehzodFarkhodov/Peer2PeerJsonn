@@ -83,8 +83,6 @@ public class Main {
         System.out.println("1 ---> ADMIN MENU ");
     }
 
-
-
     public static int inputInt(String hint) {
         System.out.println(hint);
         return scannerInt.nextInt();
