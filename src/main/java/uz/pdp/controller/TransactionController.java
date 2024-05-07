@@ -63,13 +63,13 @@ public class TransactionController {
             String command = scannerStr.nextLine();
             switch (command) {
                 case "1" -> {
-                    getAllTransactions();
+                    getALLTransaction();
                 }
                 case "2" -> {
-                    getLastWeekTransactions();
+                    getAllUserIncomeTransaction();
                 }
                 case "3" -> {
-
+                   getAllUserOutTransaction();
                 }
                 case "0" -> {
                     userMenu();
@@ -104,6 +104,23 @@ public class TransactionController {
                 lastWeekTransactions.add(transaction);
             }
         }
+    }
+
+
+
+    public static void getALLTransaction(){
+        List<Transaction> getAllTransaction = transactionService.getUserTransactions(currentUser.getId());
+        getAllTransaction.forEach(System.out::println);
+    }
+
+    public static  void getAllUserIncomeTransaction(){
+        List<Transaction> transactions = transactionService.getAllUserIncomeTransactions(currentUser.getId());
+        transactions.stream().forEach(System.out::println);
+    }
+
+    public static void getAllUserOutTransaction(){
+        List<Transaction> transactions = transactionService.getAllUserOutComeTransactions(currentUser.getId());
+        transactions.stream().forEach(System.out::println);
     }
 
     public static void currency() {

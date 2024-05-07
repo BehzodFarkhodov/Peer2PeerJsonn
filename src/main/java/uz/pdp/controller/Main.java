@@ -84,7 +84,25 @@ public class Main {
     }
 
     public static void adminMenu() {
-        System.out.println("1 ---> ADMIN MENU ");
+        System.out.println("1 ---> TRANSACTIONS  |  2 ---> INCOME  |  3 ---> OUTCOME  |  0 ---> EXIT");
+        String command = scannerStr.nextLine();
+        while (true) {
+            switch (command){
+                case "1" ->{
+                    TransactionController.getAllTransactions();
+                }
+                case "2"->{
+                   // TransactionController.getAllIncomeTransactionsForUser();
+                }
+                case "3" ->{
+
+                }
+                case "4" ->{
+
+                }
+            }
+
+        }
     }
 
     public static int inputInt(String hint) {
