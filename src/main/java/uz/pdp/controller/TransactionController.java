@@ -48,7 +48,6 @@ public class TransactionController {
         }
 
         transactionService.addTransaction(senderCard.getId(),receiverCard.getId(),totalAmount);
-
         transactionService.add(new Transaction(senderCard.getId(), receiverCard.getId(), amount));
     }
 
@@ -61,10 +60,10 @@ public class TransactionController {
                   getAllTransactions();
                 }
                 case "2" -> {
-                  getLastWeekTransactions();
+                  incomeTransactionHistory();
                 }
                 case "3" -> {
-
+                 outcomeTransactionHistory();
                 }
                 case "0" ->{
                     userMenu();
@@ -74,9 +73,19 @@ public class TransactionController {
                 }
             }
         }
-
-
     }
+
+    public static void  incomeTransactionHistory(){
+        System.out.println("qwert");
+        getLastWeekTransactions();
+    }
+
+    public static void outcomeTransactionHistory(){
+        System.out.println("qwerty");
+    }
+
+
+
 
     public static List<Transaction> getAllTransactions(){
         List<Transaction> all = transactionService.getAllTransactionsFromFile();
@@ -89,15 +98,16 @@ public class TransactionController {
         return all;
     }
 
-    public static void getLastWeekTransactions() {
-        List<Transaction> AllTransaction = transactionService.getAllTransactionsFromFile();
+    public static List<Transaction> getLastWeekTransactions() {
+        List<Transaction> AllTransaction = transactionService.getUserTransactions(currentUser.getId());
         List<Transaction> lastWeekTransactions = new ArrayList<>();
         LocalDateTime lastWeek = LocalDateTime.now().minusWeeks(1);
         for (Transaction transaction : AllTransaction) {
-            if (transaction.getTransactionDate().isAfter(lastWeek)) {
+            if (transaction.getCreatedDate().isAfter(lastWeek)) {
                 lastWeekTransactions.add(transaction);
             }
         }
+        return lastWeekTransactions;
     }
 
 }

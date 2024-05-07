@@ -86,7 +86,7 @@ public class Main {
     public static int inputInt(String hint) {
         System.out.println(hint);
         return scannerInt.nextInt();
-    }
+}
 
     public static String inputStr(String hint) {
         System.out.println(hint);
