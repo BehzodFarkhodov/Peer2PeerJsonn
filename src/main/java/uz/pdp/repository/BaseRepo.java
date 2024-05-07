@@ -15,7 +15,7 @@ import java.util.UUID;
 public class BaseRepo<T extends BaseModel> {
     protected String path;
 
-    protected Class<T>type;
+    protected Class<T> type;
     protected static ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 
     private final TypeReference<ArrayList<T>> typeReference = new TypeReference<ArrayList<T>>() {
@@ -29,6 +29,18 @@ public class BaseRepo<T extends BaseModel> {
     }
 
 
+
+
+    public ArrayList<T> getActive() {
+        ArrayList<T> ts = new ArrayList<>();
+        for (T t : getAll()) {
+            if (t.isActive()) {
+                ts.add(t);
+            }
+        }
+        return ts;
+    }
+
     public void write(ArrayList<T> data) {
         try {
             objectMapper.writeValue(new File(path), data);
@@ -39,7 +51,7 @@ public class BaseRepo<T extends BaseModel> {
 
     public ArrayList<T> read() {
         try {
-            return objectMapper.readValue(new File(path), TypeFactory.defaultInstance().constructCollectionType(ArrayList.class,type));
+            return objectMapper.readValue(new File(path), TypeFactory.defaultInstance().constructCollectionType(ArrayList.class, type));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -49,16 +61,17 @@ public class BaseRepo<T extends BaseModel> {
     public ArrayList<T> getAll() {
         return read();
     }
-    public boolean delete(UUID id) {
+
+
+    public void delete(UUID id) {
         ArrayList<T> data = read();
         for (T item : data) {
             if (item.getId().equals(id)) {
                 item.setActive(false);
                 write(data);
-                return true;
+                return;
             }
         }
-        return false;
     }
 
 }
