@@ -12,9 +12,11 @@ import uz.pdp.util.Message;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.UUID;
 
 import static uz.pdp.controller.Main.*;
@@ -190,6 +192,18 @@ public class TransactionController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void betweenDaysTransaction(LocalDateTime date1,LocalDateTime date2) {
+        System.out.print("Enter after day (YYYY-MM-DD): ");
+        LocalDateTime afterDate =  LocalDateTime.now();
+        System.out.print("Enter before day (YYYY-MM-DD): ");
+        LocalDateTime beforeDate = LocalDateTime.now();
+        transactionService.getUserTransactionsInPeriod(currentUser.getId(),afterDate,beforeDate);
+
+
+
+
     }
 
 }
