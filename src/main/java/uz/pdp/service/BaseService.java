@@ -4,6 +4,7 @@ import uz.pdp.model.BaseModel;
 import uz.pdp.repository.BaseRepo;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public abstract class BaseService<T extends BaseModel, R extends BaseRepo<T>> {
@@ -23,7 +24,7 @@ public abstract class BaseService<T extends BaseModel, R extends BaseRepo<T>> {
     }
 
 
-    public ArrayList<T> getActive() {
+    public List<T> getActive() {
         return repository.getActive();
     }
 
