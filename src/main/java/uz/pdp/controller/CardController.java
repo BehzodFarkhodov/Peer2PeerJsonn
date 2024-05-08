@@ -42,6 +42,7 @@ public class CardController {
 
         if (number.length() != 16) {
             System.out.println(Message.WRONG);
+            userMenu();
         }
         cardService.add(new Card(currentUser.getId(), number, category, balance, true));
         System.out.println(Message.SUCCESSFULLY);

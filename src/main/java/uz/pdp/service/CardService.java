@@ -1,10 +1,12 @@
 package uz.pdp.service;
 
 import uz.pdp.model.Card;
+import uz.pdp.model.Transaction;
 import uz.pdp.repository.CardRepo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static uz.pdp.repository.CardRepo.cardRepo;
@@ -13,6 +15,7 @@ public class CardService extends BaseService<Card, CardRepo> {
 
 
     private static final CardService cardService = new CardService();
+    private final CommissionService commissionService = new CommissionService();
 
 
     public static CardService getInstance() {
@@ -52,5 +55,19 @@ public class CardService extends BaseService<Card, CardRepo> {
             }
         }
         return null;
+    }
+    public boolean transferMoney(UUID fromCard, UUID toCard, Double price){
+      Optional<Card>  byId = findById(fromCard);
+      Optional<Card> byCard = findById(toCard);
+      Double byCards = commissionService.getByCard(byId.get().getCategory(),byCard.get().getCategory());
+      double result = price * byCards / 100;
+      if(byId.get().getBalance() <= price ){
+          return false;
+      }
+      repository.transferMoney(fromCard,toCard,price,result);
+      return true;
+    }
+    public List<Card> getAllCards(String card){
+        return repository.getAllCards(card);
     }
 }

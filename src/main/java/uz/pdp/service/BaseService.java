@@ -5,6 +5,7 @@ import uz.pdp.repository.BaseRepo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public abstract class BaseService<T extends BaseModel, R extends BaseRepo<T>> {
@@ -21,6 +22,9 @@ public abstract class BaseService<T extends BaseModel, R extends BaseRepo<T>> {
         }
         repository.add(t);
         return true;
+    }
+    public Optional<T> findById(UUID id){
+        return repository.findById(id);
     }
 
 

@@ -1,49 +1,17 @@
 [ {
-  "id" : "5b3da1a4-092c-4486-a74f-4dc0d7b94256",
-  "createdDate" : "06/05/2024 23:22:07",
-  "ownerId" : "3a1e579d-94bb-4a13-b053-1cbfefb548c5",
-  "cardNumber" : "0000000000000000",
+  "id" : "2472b583-1db8-4c00-9fe4-b39a1af596c1",
+  "createdDate" : "28/04/2024 16:11:52",
+  "ownerId" : "a0a5916e-36c4-4bd3-a5b2-7500b93fc21e",
+  "cardNumber" : "1234123412341234",
   "category" : "HUMO",
-  "balance" : 39800.0,
+  "balance" : 100000.0,
   "active" : true
 }, {
-  "id" : "40b86985-9c8e-48ee-a888-cd19107c8a6b",
-  "createdDate" : "06/05/2024 23:22:37",
-  "ownerId" : "e629ed61-1028-40b5-b015-cd139d969bb4",
-  "cardNumber" : "1111111111111111",
-  "category" : "HUMO",
-  "balance" : 55150.0,
-  "active" : true
-}, {
-  "id" : "4f547063-f619-416f-b29d-47d58d8bd32b",
-  "createdDate" : "07/05/2024 08:15:14",
-  "ownerId" : "3a1e579d-94bb-4a13-b053-1cbfefb548c5",
-  "cardNumber" : "6666666666666666",
-  "category" : "HUMO",
-  "balance" : 59900.0,
-  "active" : true
-}, {
-  "id" : "b7c7c624-3dc5-4dd6-baa6-fd6dc6e504ca",
-  "createdDate" : "07/05/2024 08:18:42",
-  "ownerId" : "259b3126-414c-43ba-a846-7171481928cb",
-  "cardNumber" : "9999999999999999",
+  "id" : "4a52e23e-138d-44b3-b78d-b5e7e8dd26aa",
+  "createdDate" : "28/04/2024 16:12:15",
+  "ownerId" : "a0a5916e-36c4-4bd3-a5b2-7500b93fc21e",
+  "cardNumber" : "4321432143214321",
   "category" : "UZCARD",
-  "balance" : 90000.0,
-  "active" : false
-}, {
-  "id" : "a422f792-d8e0-4067-af5e-c7c772e5b443",
-  "createdDate" : "07/05/2024 16:53:43",
-  "ownerId" : "16051a93-c498-4bc9-8234-1d94acf6aa6e",
-  "cardNumber" : "11111111111111112",
-  "category" : "UZCARD",
-  "balance" : 1111.0,
-  "active" : false
-}, {
-  "id" : "a5216bb8-d59a-4dbc-99cb-2c043cf37c72",
-  "createdDate" : "07/05/2024 17:11:01",
-  "ownerId" : "16051a93-c498-4bc9-8234-1d94acf6aa6e",
-  "cardNumber" : "1234123478967896",
-  "category" : "HUMO",
-  "balance" : 34900.0,
-  "active" : false
+  "balance" : 40000.0,
+  "active" : true
 } ]

@@ -1,11 +1,16 @@
 package uz.pdp.repository;
 
+import uz.pdp.enumerator.Category;
+import uz.pdp.exception.DataNotFoundException;
 import uz.pdp.model.Card;
+import uz.pdp.model.Commission;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class CardRepo extends BaseRepo<Card> {
@@ -32,34 +37,56 @@ public class CardRepo extends BaseRepo<Card> {
         return getAll();
     }
 
-    public boolean deleteCard(String cardNumber) {
-        List<Card> cards = getAll();
-        for (Card card : cards) {
-            if (card.getCardNumber().equals(cardNumber)) {
-                card.setActive(false);
-                write(new ArrayList<>(cards));
-                return true;
-            }
-        }
-        return false;
+
+    public Card getById(UUID id) throws DataNotFoundException {
+
+        return getAll().stream()
+                .filter((card -> card.getId().equals(id)))
+                .findAny()
+                .orElseThrow(new Supplier<DataNotFoundException>() {
+                    @Override
+                    public DataNotFoundException get() {
+                        return new DataNotFoundException("data not found");
+                    }
+                });
+
     }
 
-        public Card getById(UUID id) {
-        ArrayList<Card> allCards = getAll();
-        for (Card card : allCards) {
-            if (card.getId().equals(id)) {
-                return card;
+
+public void update(Card card) {
+    List<Card> cards = getAll();
+    List<Card> updatedCards = cards.stream()
+            .map(c -> c.getId().equals(card.getId()) ? card : c)
+            .collect(Collectors.toList());
+    write((ArrayList<Card>) updatedCards);
+}
+
+    public void transferMoney(UUID fromCard, UUID toCard, Double price, Double commission){
+        ArrayList<Card> cards = getAll();
+        cards.forEach(card -> {
+            if(card.getId().equals(fromCard)){
+                double v = card.getBalance() - price - commission;
+                card.setBalance(v);
+            } else if(card.getId().equals(toCard)){
+                double v = card.getBalance() + price;
+                card.setBalance(v);
             }
-        }
-        return null;
+
+        });
+        updateDateFiles(cards);
     }
-    public void update(Card card) {
-        List<Card> cards = getAll();
-        List<Card> updatedCards = cards.stream()
-                .map(c -> c.getId().equals(card.getId()) ? card : c)
-                .collect(Collectors.toList());
-        write((ArrayList<Card>) updatedCards);
+    public List<Card> getAllCards(String card){
+        ArrayList<Card> cards = new ArrayList<>(getAll());
+        return cards.stream().filter(card1 -> card1.getCardNumber().equals(card) && card1.isActive()).collect(Collectors.toList());
     }
+
+
+
+
+
+
+
+
 
 
 }
