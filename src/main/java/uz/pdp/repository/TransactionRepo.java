@@ -164,9 +164,11 @@ public List<Transaction> getAllUserTransactions(UUID userId) {
     }
 
 
-    public List<Transaction> getUserTransactionsInPeriod(UUID userId, LocalDateTime date1, LocalDateTime date2) {
-        List<Transaction> transactions = getAllUserTransactions(userId);
-        return transactions.stream().filter(transaction -> transaction.getCreatedDate().isAfter(date1) &&
-                transaction.getCreatedDate().isBefore(date2)).toList();
+    public List<Transaction> getUserTransactionsInPeriod(LocalDate date, LocalDate date2){
+        ArrayList<Transaction> transactions = new ArrayList<>(getAll());
+        return transactions.stream().
+                filter(transaction -> transaction.getCreatedDate().isAfter(date.atStartOfDay()) && transaction.getCreatedDate().
+                        isBefore(date2.atStartOfDay())).collect(Collectors.toList());
     }
+
 }
