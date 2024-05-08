@@ -12,7 +12,7 @@
   "ownerId" : "e629ed61-1028-40b5-b015-cd139d969bb4",
   "cardNumber" : "1111111111111111",
   "category" : "HUMO",
-  "balance" : 45050.0,
+  "balance" : 55150.0,
   "active" : true
 }, {
   "id" : "4f547063-f619-416f-b29d-47d58d8bd32b",
@@ -37,5 +37,13 @@
   "cardNumber" : "11111111111111112",
   "category" : "UZCARD",
   "balance" : 1111.0,
-  "active" : true
+  "active" : false
+}, {
+  "id" : "a5216bb8-d59a-4dbc-99cb-2c043cf37c72",
+  "createdDate" : "07/05/2024 17:11:01",
+  "ownerId" : "16051a93-c498-4bc9-8234-1d94acf6aa6e",
+  "cardNumber" : "1234123478967896",
+  "category" : "HUMO",
+  "balance" : 34900.0,
+  "active" : false
 } ]
