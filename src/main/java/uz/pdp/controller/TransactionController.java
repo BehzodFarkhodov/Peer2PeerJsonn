@@ -141,24 +141,20 @@ public class TransactionController {
     private static void currencyAnother() {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-
             ArrayList<Bank> banks = objectMapper.readValue(new URL("https://cbu.uz/uz/arkhiv-kursov-valyut/json/"), new TypeReference<ArrayList<Bank>>() {
             });
             int i = 1;
             for (Bank bank1 : banks) {
-                System.out.println(i++ + " ." + bank1);
+                System.out.println(i++ + "." + bank1);
             }
 
             int choose = inputInt("Choose one Valuate ->") - 1;
-
 
             Bank bank = banks.get(choose);
             System.out.println("Choose Enter Summa :");
             double summa = scannerDouble.nextDouble();
 
             System.out.println(bank.getRate() / summa);
-
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -3,6 +3,8 @@ package uz.pdp.controller;
 import uz.pdp.enumerator.Category;
 import uz.pdp.model.Commission;
 
+import javax.swing.*;
+
 import static uz.pdp.controller.Main.*;
 
 public class CommissionController {
