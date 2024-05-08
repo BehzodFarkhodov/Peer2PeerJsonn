@@ -2,7 +2,6 @@ package uz.pdp.service;
 
 import uz.pdp.model.Card;
 import uz.pdp.repository.CardRepo;
-import uz.pdp.repository.UserRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +38,7 @@ public class CardService extends BaseService<Card, CardRepo> {
     public List<Card> getAllCard(UUID userId) {
         return repository.getAllCard(userId);
     }
-    public List<Card> getAllCards() {
+    public List<Card> getAllCards(UUID userId) {
         return repository.getAllCards();
     }
     public boolean deleteCard(String cardNumber) {

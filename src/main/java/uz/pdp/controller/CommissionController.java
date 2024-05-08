@@ -3,6 +3,8 @@ package uz.pdp.controller;
 import uz.pdp.enumerator.Category;
 import uz.pdp.model.Commission;
 
+import javax.swing.*;
+
 import static uz.pdp.controller.Main.*;
 
 public class CommissionController {
@@ -28,6 +30,6 @@ public class CommissionController {
     public static void changeCardsCommission(Category category1,Category category2){
         System.out.println("Enter the commission (%)  : ");
         double percentage = scannerDouble.nextDouble();
-        //commissionService.add(new Commission(category1,category2,percentage));
+
     }
 }

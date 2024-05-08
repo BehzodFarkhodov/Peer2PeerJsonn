@@ -31,6 +31,7 @@ public class Main {
     public static User currentUser = null;
 
     public static void main(String[] args) {
+        System.out.println("Sanjar Ismailov");
         mainMenu();
     }
 
@@ -41,7 +42,6 @@ public class Main {
 
     static void mainMenu() {
         while (true) {
-
             System.out.println("1 ----> SIGN UP  |  2 ----> LOGIN   ");
             String command = scannerStr.nextLine();
             switch (command) {
@@ -79,12 +79,14 @@ public class Main {
                     mainMenu();
                 }
 
+
+
             }
         }
     }
 
     public static void adminMenu() {
-        System.out.println("1 ---> TRANSACTIONS  |  2 ---> INCOME  |  3 ---> OUTCOME  |  0 ---> EXIT");
+        System.out.println("1 ---> TRANSACTIONS  |  2 ---> IN PERIOD  |  3 ---> CHANGE COMMISSION  |  0 ---> EXIT");
         String command = scannerStr.nextLine();
         while (true) {
             switch (command){
@@ -92,16 +94,15 @@ public class Main {
                     TransactionController.getAllTransactions();
                 }
                 case "2"->{
-                   // TransactionController.getAllIncomeTransactionsForUser();
+
                 }
                 case "3" ->{
-
+                  CommissionController.changeCommission();
                 }
-                case "4" ->{
-
+                case "0" ->{
+                  mainMenu();
                 }
             }
-
         }
     }
 
