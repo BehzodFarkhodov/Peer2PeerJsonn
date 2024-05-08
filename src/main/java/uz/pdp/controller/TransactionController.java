@@ -73,43 +73,45 @@ public class TransactionController {
         try {
             index = scannerInt.nextInt() - 1;
             if (index == -1) userMenu();
+            System.out.print("Enter a to Card -> ");
+
+            String toCard = scannerStr.nextLine();
+
+            List<Card> cards1 = searchCard(toCard);
+
+            if (cards1.isEmpty()) {
+                System.out.println("No such card exists 🤕");
+                System.out.println();
+                transferMoney();
+            }
+
+            System.out.println("Choose one -> | 0 -> Exit");
+            ;
+            int choice = 0;
+            try {
+                choice = scannerInt.nextInt() - 1;
+                if (choice == -1) userMenu();
+            } catch (InputMismatchException | IndexOutOfBoundsException e) {
+                System.out.println(e.getMessage());
+            }
+
+            System.out.print("Enter a price 🤑 -> ");
+            double price = scannerInt.nextDouble();
+
+            if (cardService.transferMoney(cards.get(index).getId(), cards1.get(choice).getId(), price)) {
+                Commission commission = new Commission(cards.get(index).getCategory(), cards1.get(choice).getCategory(), price);
+                transactionService.add(new Transaction(cards.get(index).getId(), cards1.get(choice).getId(), price, commission.getPercentage()));
+
+            } else {
+                System.out.println("Your balance is minus");
+            }
+
         } catch (InputMismatchException | IndexOutOfBoundsException e) {
             System.out.println(e.getMessage());
 
         }
 
 
-        System.out.print("Enter a to Card -> ");
-        String toCard = scannerStr.nextLine();
-
-        List<Card> cards1 = searchCard(toCard);
-
-        if (cards1.isEmpty()) {
-            System.out.println("No such card exists 🤕");
-            System.out.println();
-            transferMoney();
-        }
-
-        System.out.println("Choose one -> | 0 -> Exit");
-        ;
-        int choice = 0;
-        try {
-            choice = scannerInt.nextInt() - 1;
-            if (choice == -1) userMenu();
-        } catch (InputMismatchException | IndexOutOfBoundsException e) {
-            System.out.println(e.getMessage());
-        }
-
-        System.out.print("Enter a price 🤑 -> ");
-        double price = scannerInt.nextDouble();
-
-        if (cardService.transferMoney(cards.get(index).getId(), cards1.get(choice).getId(), price)) {
-            Commission commission = new Commission(cards.get(index).getCategory(), cards1.get(choice).getCategory(), price);
-            transactionService.add(new Transaction(cards.get(index).getId(), cards1.get(choice).getId(), price, commission.getPercentage()));
-
-        } else {
-            System.out.println("Your balance is minus");
-        }
     }
 
     public static List<Card> searchCard(String card) {
@@ -217,11 +219,17 @@ public class TransactionController {
         System.out.println("Choose your card : ");
         int choice = scannerInt.nextInt() - 1;
         List<Transaction> transactions = transactionService.getIncomeTransactions(cards.get(choice).getId());
+        if (transactions.isEmpty()) {
+            System.out.println("Empty !");
+        }
         transactions.forEach(System.out::println);
     }
 
     public static void getAllUserOutTransaction() {
         List<Transaction> transactions = transactionService.getOutcomeTransactions(currentUser.getId());
+        if (transactions.isEmpty()) {
+            System.out.println("Card Empty bro !");
+        }
         transactions.forEach(System.out::println);
     }
 
@@ -289,7 +297,7 @@ public class TransactionController {
     }
 
     public static void betweenDaysTransaction() {
-       System.out.print("Enter days (dd/MM/yyyy) -> ");
+        System.out.print("Enter days (dd/MM/yyyy) -> ");
         String lsd = null;
         LocalDate date = LocalDate.parse(lsd = scannerStr.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         System.out.print("Enter second day (dd/MM/yyyy) -> ");
