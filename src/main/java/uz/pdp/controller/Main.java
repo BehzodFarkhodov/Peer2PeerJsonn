@@ -87,18 +87,18 @@ public class Main {
         System.out.println("1 ---> TRANSACTIONS  |  2 ---> IN PERIOD  |  3 ---> CHANGE COMMISSION  |  0 ---> EXIT");
         String command = scannerStr.nextLine();
         while (true) {
-            switch (command){
-                case "1" ->{
+            switch (command) {
+                case "1" -> {
                     TransactionController.getAllTransactions();
                 }
-                case "2"->{
-
+                case "2" -> {
+                    TransactionController.betweenDaysTransaction();
                 }
-                case "3" ->{
-                  CommissionController.changeCommission();
+                case "3" -> {
+                    CommissionController.changeCommission();
                 }
-                case "0" ->{
-                  mainMenu();
+                case "0" -> {
+                    mainMenu();
                 }
             }
         }

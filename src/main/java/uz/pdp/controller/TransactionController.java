@@ -15,8 +15,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -24,7 +26,7 @@ import static uz.pdp.controller.Main.*;
 
 
 public class TransactionController {
-//    public static void peerToPeer(UUID userId) {
+    //    public static void peerToPeer(UUID userId) {
 //        UserService userService = new UserService();
 //        List<Card> userCards = cardService.getAllCard(currentUser.getId());
 //        System.out.println("Your cards:");
@@ -63,51 +65,51 @@ public class TransactionController {
 //
 //      z  transactionService.add(new Transaction(senderCard.getId(), receiverCard.getId(), amount));
 //    }
-public static void transferMoney() {
-    List<Card> cards = cardService.getAllCards(currentUser.getId());
-    int i = 1;
-    for (Card card : cards) {
-        System.out.println(i++ + ". " + card.getCardNumber() + " | " + card.getBalance() + " | " + card.getCategory() + " | " + card.getOwnerId());
+    public static void transferMoney() {
+        List<Card> cards = cardService.getAllCards(currentUser.getId());
+        int i = 1;
+        for (Card card : cards) {
+            System.out.println(i++ + ". " + card.getCardNumber() + " | " + card.getBalance() + " | " + card.getCategory() + " | " + card.getOwnerId());
+        }
+        System.out.println("Choose one -> | 0 -> Exit ");
+        int index = scannerInt.nextInt() - 1;
+
+        if (index == -1) userMenu();
+
+        System.out.print("Enter a to Card -> ");
+        String toCard = scannerStr.nextLine();
+
+        List<Card> cards1 = searchCard(toCard);
+
+        if (cards1.isEmpty()) {
+            System.out.println("No such card exists 🤕");
+            System.out.println();
+            transferMoney();
+        }
+
+        System.out.println("Choose one -> | 0 -> Exit");
+        int choice = scannerInt.nextInt() - 1;
+
+
+        if (choice == -1) userMenu();
+
+        System.out.print("Enter a price 🤑 -> ");
+        double price = scannerInt.nextDouble();
+
+        if (cardService.transferMoney(cards.get(index).getId(), cards1.get(choice).getId(), price)) {
+            Commission commission = new Commission(cards.get(index).getCategory(), cards1.get(choice).getCategory(), price);
+            transactionService.add(new Transaction(cards.get(index).getId(), cards1.get(choice).getId(), price, commission.getPercentage()));
+
+        } else {
+            System.out.println("Your balance is minus");
+        }
     }
-    System.out.println("Choose one -> | 0 -> Exit ");
-    int index = scannerInt.nextInt() - 1;
 
-    if (index == -1) userMenu();
-
-    System.out.print("Enter a to Card -> ");
-    String toCard = scannerStr.nextLine();
-
-    List<Card> cards1 = searchCard(toCard);
-
-    if (cards1.isEmpty()) {
-        System.out.println("No such card exists 🤕");
-        System.out.println();
-        transferMoney();
+    public static List<Card> searchCard(String card) {
+        List<Card> cards = cardService.getAllCards(card);
+        cards.forEach(System.out::println);
+        return cards;
     }
-
-    System.out.println("Choose one -> | 0 -> Exit");
-    int choice = scannerInt.nextInt() - 1;
-
-
-    if (choice == -1) userMenu();
-
-    System.out.print("Enter a price 🤑 -> ");
-    double price = scannerInt.nextDouble();
-
-    if (cardService.transferMoney(cards.get(index).getId(), cards1.get(choice).getId(), price)) {
-        Commission commission = new Commission(cards.get(index).getCategory(), cards1.get(choice).getCategory(), price);
-        transactionService.add(new Transaction(cards.get(index).getId(), cards1.get(choice).getId(), price, commission.getPercentage()));
-
-    } else {
-        System.out.println("Your balance is minus");
-    }
-}
-public static List<Card> searchCard(String card){
-    List<Card> cards = cardService.getAllCards(card);
-    cards.forEach(System.out::println);
-    return cards;
-}
-
 
 
     public static void transactionsHistory() {
@@ -122,7 +124,7 @@ public static List<Card> searchCard(String card){
                     getAllUserIncomeTransaction();
                 }
                 case "3" -> {
-                   getAllUserOutTransaction();
+                    getAllUserOutTransaction();
                 }
                 case "0" -> {
                     userMenu();
@@ -139,7 +141,7 @@ public static List<Card> searchCard(String card){
     public static void getAllTransactions() {
         List<Transaction> all = transactionService.getAll();
         all.stream().forEach(System.out::println);
-       adminMenu();
+        adminMenu();
     }
 
     public static void getLastWeekTransactions() {
@@ -147,7 +149,8 @@ public static List<Card> searchCard(String card){
 
         transactions.forEach(System.out::println);
     }
-    public static List<Transaction> getAllTransactionsLastMonth(LocalDate lcd,UUID id){
+
+    public static List<Transaction> getAllTransactionsLastMonth(LocalDate lcd, UUID id) {
         LocalDate localDate = lcd.minusDays(30);
         ArrayList<Transaction> transactions = new ArrayList<>(transactionService.getUserTransactions(id));
         return transactions.stream().filter(transaction -> transaction.getCreatedDate().isAfter(localDate.atStartOfDay())).collect(Collectors.toList());
@@ -159,35 +162,33 @@ public static List<Card> searchCard(String card){
         transactions.forEach(System.out::println);
     }
 
-    public static List<Transaction> getAllTransactionsLastWeek(LocalDate lcd, UUID id){
+    public static List<Transaction> getAllTransactionsLastWeek(LocalDate lcd, UUID id) {
         LocalDate localDate = lcd.minusWeeks(2);
         ArrayList<Transaction> transactions = new ArrayList<>(transactionService.getUserTransactions(id));
         return transactions.stream().filter(transaction -> transaction.getCreatedDate().isAfter(localDate.atStartOfDay())).collect(Collectors.toList());
     }
+
     public static void getAllTransactionsLastWeek() {
         List<Transaction> transactions = getAllTransactionsLastWeek(LocalDate.now(), currentUser.getId());
         transactions.forEach(System.out::println);
     }
 
 
-
-
-
-    public static void getALLTransaction(){
+    public static void getALLTransaction() {
         List<Transaction> getAllTransaction = transactionService.getUserTransactions(currentUser.getId());
         getAllTransaction.forEach(System.out::println);
 
         System.out.println("1 ---> LAST WEEK TRANSACTIONS  |  2 ---> LAST MONTH TRANSACTIONS  | 0 ---> EXIT");
-        String command  = scannerStr.nextLine();
+        String command = scannerStr.nextLine();
 
-        switch (command){
-            case "1" ->{
-              getAllTransactionsLastWeek();
+        switch (command) {
+            case "1" -> {
+                getAllTransactionsLastWeek();
             }
-            case "2" ->{
-              getAllTransactionsLastMonth();
+            case "2" -> {
+                getAllTransactionsLastMonth();
             }
-            case "0" ->{
+            case "0" -> {
                 userMenu();
             }
             default -> {
@@ -197,7 +198,7 @@ public static List<Card> searchCard(String card){
         }
     }
 
-    public static  void getAllUserIncomeTransaction(){
+    public static void getAllUserIncomeTransaction() {
         List<Card> cards = cardService.getAllCard(currentUser.getId());
         System.out.println("Your all cards : ");
         int i = 1;
@@ -206,12 +207,12 @@ public static List<Card> searchCard(String card){
         }
 
         System.out.println("Choose your card : ");
-        int choice = scannerInt.nextInt()-1;
+        int choice = scannerInt.nextInt() - 1;
         List<Transaction> transactions = transactionService.getIncomeTransactions(cards.get(choice).getId());
         transactions.forEach(System.out::println);
     }
 
-    public static void getAllUserOutTransaction(){
+    public static void getAllUserOutTransaction() {
         List<Transaction> transactions = transactionService.getOutcomeTransactions(currentUser.getId());
         transactions.forEach(System.out::println);
     }
@@ -242,7 +243,7 @@ public static List<Card> searchCard(String card){
                 System.out.println(i++ + "." + bank1);
             }
             System.out.println("Choose one Valuate : ");
-            int choice = scannerInt.nextInt()-1;
+            int choice = scannerInt.nextInt() - 1;
 
             Bank bank = banks.get(choice);
 
@@ -278,6 +279,18 @@ public static List<Card> searchCard(String card){
             throw new RuntimeException(e);
         }
     }
+
+    public static void betweenDaysTransaction() {
+        System.out.print("Enter days (dd/MM/yyyy) -> ");
+        String lsd = null;
+        LocalDate date = LocalDate.parse(lsd = scannerStr.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        System.out.print("Enter second day (dd/MM/yyyy) -> ");
+        String lsd2 = null;
+        LocalDate date2 = LocalDate.parse(lsd2 = scannerStr.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        List<Transaction> transactionList = transactionService.getUserTransactionsInPeriod(date, date2);
+        transactionList.forEach(System.out::println);
+    }
+
 
 }
 
