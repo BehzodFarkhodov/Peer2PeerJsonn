@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import uz.pdp.exception.DataNotFoundException;
 import uz.pdp.model.Card;
+import uz.pdp.model.Commission;
 import uz.pdp.model.Transaction;
 import uz.pdp.service.TransactionService;
 import uz.pdp.service.UserService;
@@ -12,54 +13,102 @@ import uz.pdp.util.Message;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static uz.pdp.controller.Main.*;
 
 
 public class TransactionController {
-    public static void peerToPeer(UUID userId) {
-        UserService userService = new UserService();
-        List<Card> userCards = cardService.getAllCard(currentUser.getId());
-        System.out.println("Your cards:");
-        for (int i = 0; i < userCards.size(); i++) {
-            System.out.println((i + 1) + ". " + userCards.get(i).getCardNumber());
-        }
-
-        System.out.println("Enter the number of your card to send money: ");
-        int selectedCardIndex = scannerInt.nextInt();
-        if (selectedCardIndex < 1 || selectedCardIndex > userCards.size()) {
-            System.out.println("Invalid card number!");
-            return;
-        }
-        Card senderCard = userCards.get(selectedCardIndex - 1);
-        System.out.println("Enter the receiver's card number: ");
-        String receiverCardNumber = scannerStr.nextLine();
-        Card receiverCard = cardService.getCardByCardNumber(receiverCardNumber);
-        System.out.println("Enter the amount to send: ");
-        double amount = scannerDouble.nextDouble();
-
-        double commission = TransactionService.calculateCommission(amount);
-        double totalAmount = amount + commission;
-
-        System.out.println("Are you sure you want to send " + amount + " UZS to " + receiverCardNumber + " with a commission of " + commission + " UZS? (yes/no)");
-        String choice = scannerStr.nextLine();
-        if (!choice.equalsIgnoreCase("yes")) {
-            System.out.println("Transaction cancelled.");
-            return;
-        }
-
-        try {
-            transactionService.addTransaction(senderCard.getId(), receiverCard.getId(), totalAmount);
-        } catch (DataNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        transactionService.add(new Transaction(senderCard.getId(), receiverCard.getId(), amount));
+//    public static void peerToPeer(UUID userId) {
+//        UserService userService = new UserService();
+//        List<Card> userCards = cardService.getAllCard(currentUser.getId());
+//        System.out.println("Your cards:");
+//        for (int i = 0; i < userCards.size(); i++) {
+//            System.out.println((i + 1) + ". " + userCards.get(i).getCardNumber());
+//        }
+//
+//        System.out.println("Enter the number of your card to send money: ");
+//        int selectedCardIndex = scannerInt.nextInt();
+//        if (selectedCardIndex < 1 || selectedCardIndex > userCards.size()) {
+//            System.out.println("Invalid card number!");
+//            return;
+//        }
+//        Card senderCard = userCards.get(selectedCardIndex - 1);
+//        System.out.println("Enter the receiver's card number: ");
+//        String receiverCardNumber = scannerStr.nextLine();
+//        Card receiverCard = cardService.getCardByCardNumber(receiverCardNumber);
+//        System.out.println("Enter the amount to send: ");
+//        double amount = scannerDouble.nextDouble();
+//
+//        double commission = TransactionService.calculateCommission(amount);
+//        double totalAmount = amount + commission;
+//
+//        System.out.println("Are you sure you want to send " + amount + " UZS to " + receiverCardNumber + " with a commission of " + commission + " UZS? (yes/no)");
+//        String choice = scannerStr.nextLine();
+//        if (!choice.equalsIgnoreCase("yes")) {
+//            System.out.println("Transaction cancelled.");
+//            return;
+//        }
+//
+//        try {
+//           transactionService.addTransaction(senderCard.getId(), receiverCard.getId(), totalAmount);
+//        } catch (DataNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//      z  transactionService.add(new Transaction(senderCard.getId(), receiverCard.getId(), amount));
+//    }
+public static void transferMoney() {
+    List<Card> cards = cardService.getAllCards(currentUser.getId());
+    int i = 1;
+    for (Card card : cards) {
+        System.out.println(i++ + ". " + card.getCardNumber() + " | " + card.getBalance() + " | " + card.getCategory() + " | " + card.getOwnerId());
     }
+    System.out.println("Choose one -> | 0 -> Exit ");
+    int index = scannerInt.nextInt() - 1;
+
+    if (index == -1) userMenu();
+
+    System.out.print("Enter a to Card -> ");
+    String toCard = scannerStr.nextLine();
+
+    List<Card> cards1 = searchCard(toCard);
+
+    if (cards1.isEmpty()) {
+        System.out.println("No such card exists 🤕");
+        System.out.println();
+        transferMoney();
+    }
+
+    System.out.println("Choose one -> | 0 -> Exit");
+    int choice = scannerInt.nextInt() - 1;
+
+
+    if (choice == -1) userMenu();
+
+    System.out.print("Enter a price 🤑 -> ");
+    double price = scannerInt.nextDouble();
+
+    if (cardService.transferMoney(cards.get(index).getId(), cards1.get(choice).getId(), price)) {
+        Commission commission = new Commission(cards.get(index).getCategory(), cards1.get(choice).getCategory(), price);
+        transactionService.add(new Transaction(cards.get(index).getId(), cards1.get(choice).getId(), price, commission.getPercentage()));
+
+    } else {
+        System.out.println("Your balance is minus");
+    }
+}
+public static List<Card> searchCard(String card){
+    List<Card> cards = cardService.getAllCards(card);
+    cards.forEach(System.out::println);
+    return cards;
+}
+
+
 
     public static void transactionsHistory() {
         while (true) {
@@ -91,47 +140,86 @@ public class TransactionController {
         List<Transaction> all = transactionService.getAll();
         all.stream().forEach(System.out::println);
        adminMenu();
-      //  System.out.println("From Card: " + transaction.getFromCard());
-//            System.out.println("To Card: " + transaction.getToCard());
-//            System.out.println("Amount: " + transaction.getAmount());
-//            System.out.println("--------------------");
-
-
     }
 
     public static void getLastWeekTransactions() {
-        List<Transaction> AllTransaction = transactionService.getAllTransactionsFromFile();
-        List<Transaction> lastWeekTransactions = new ArrayList<>();
-        LocalDateTime lastWeek = LocalDateTime.now().minusWeeks(1);
-        for (Transaction transaction : AllTransaction) {
-            if (transaction.getCreatedDate()
-                    .isAfter(lastWeek)) {
-                lastWeekTransactions.add(transaction);
-            }
-        }
+        List<Transaction> transactions = transactionService.getAllTransactionsLastWeek(LocalDate.now(), currentUser.getId());
+
+        transactions.forEach(System.out::println);
     }
+    public static List<Transaction> getAllTransactionsLastMonth(LocalDate lcd,UUID id){
+        LocalDate localDate = lcd.minusDays(30);
+        ArrayList<Transaction> transactions = new ArrayList<>(transactionService.getUserTransactions(id));
+        return transactions.stream().filter(transaction -> transaction.getCreatedDate().isAfter(localDate.atStartOfDay())).collect(Collectors.toList());
+    }
+
+
+    public static void getAllTransactionsLastMonth() {
+        List<Transaction> transactions = getAllTransactionsLastMonth(LocalDate.now(), currentUser.getId());
+        transactions.forEach(System.out::println);
+    }
+
+    public static List<Transaction> getAllTransactionsLastWeek(LocalDate lcd, UUID id){
+        LocalDate localDate = lcd.minusWeeks(2);
+        ArrayList<Transaction> transactions = new ArrayList<>(transactionService.getUserTransactions(id));
+        return transactions.stream().filter(transaction -> transaction.getCreatedDate().isAfter(localDate.atStartOfDay())).collect(Collectors.toList());
+    }
+    public static void getAllTransactionsLastWeek() {
+        List<Transaction> transactions = getAllTransactionsLastWeek(LocalDate.now(), currentUser.getId());
+        transactions.forEach(System.out::println);
+    }
+
+
 
 
 
     public static void getALLTransaction(){
         List<Transaction> getAllTransaction = transactionService.getUserTransactions(currentUser.getId());
         getAllTransaction.forEach(System.out::println);
+
+        System.out.println("1 ---> LAST WEEK TRANSACTIONS  |  2 ---> LAST MONTH TRANSACTIONS  | 0 ---> EXIT");
+        String command  = scannerStr.nextLine();
+
+        switch (command){
+            case "1" ->{
+              getAllTransactionsLastWeek();
+            }
+            case "2" ->{
+              getAllTransactionsLastMonth();
+            }
+            case "0" ->{
+                userMenu();
+            }
+            default -> {
+                System.out.println(Message.WRONG);
+            }
+
+        }
     }
 
     public static  void getAllUserIncomeTransaction(){
-        List<Transaction> transactions = transactionService.getAllUserIncomeTransactions(currentUser.getId());
-        transactions.stream().forEach(System.out::println);
+        List<Card> cards = cardService.getAllCard(currentUser.getId());
+        System.out.println("Your all cards : ");
+        int i = 1;
+        for (Card card : cards) {
+            System.out.println(i++ + "." + card.getCardNumber());
+        }
+
+        System.out.println("Choose your card : ");
+        int choice = scannerInt.nextInt()-1;
+        List<Transaction> transactions = transactionService.getIncomeTransactions(cards.get(choice).getId());
+        transactions.forEach(System.out::println);
     }
 
     public static void getAllUserOutTransaction(){
-        List<Transaction> transactions = transactionService.getAllUserOutComeTransactions(currentUser.getId());
-        transactions.stream().forEach(System.out::println);
+        List<Transaction> transactions = transactionService.getOutcomeTransactions(currentUser.getId());
+        transactions.forEach(System.out::println);
     }
 
     public static void currency() {
 
         while (true) {
-            System.out.println("1 Sum to another Currency  \t 2 Another to Sum Currency  \t 0 ExT ");
+            System.out.println("1 ---> SUM TO VALUATE  |  2 ---> VALUATE TO SUM  |  0 ---> EXIT ");
             String command = inputStr("Choose one  -> ");
             switch (command) {
                 case "1" -> currencySum();

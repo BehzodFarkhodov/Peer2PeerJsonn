@@ -30,7 +30,6 @@ public class UserController {
         } else {
             System.out.println();
         }
-
     }
 
 
@@ -54,7 +53,4 @@ public class UserController {
               Main.adminMenu();
         }
     }
-
-
-
 }

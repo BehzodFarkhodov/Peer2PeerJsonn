@@ -1,22 +1,8 @@
 [ {
-  "id" : "fd064b13-055e-4a98-98f1-93cff57d640b",
-  "createdDate" : "28/04/2024 09:18:35",
+  "id" : "1c60654e-c180-484b-b481-60ea0ab544d4",
+  "createdDate" : "28/04/2024 16:12:30",
   "fromCard" : "HUMO",
   "toCard" : "UZCARD",
-  "percentage" : 10.0,
-  "active" : true
-}, {
-  "id" : "7f380fd8-96d2-4f26-b95e-7bad71b5a5b2",
-  "createdDate" : "28/04/2024 09:25:20",
-  "fromCard" : "HUMO",
-  "toCard" : "VIZA",
-  "percentage" : 0.05,
-  "active" : true
-}, {
-  "id" : "300cc1a7-10b8-48f4-ad74-70da71736722",
-  "createdDate" : "28/04/2024 09:25:43",
-  "fromCard" : "HUMO",
-  "toCard" : "UZCARD",
-  "percentage" : 0.05,
+  "percentage" : 2.0,
   "active" : true
 } ]
