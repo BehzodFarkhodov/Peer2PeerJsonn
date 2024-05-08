@@ -86,9 +86,7 @@ public List<Transaction> getAllUserTransactions(UUID userId) {
     public List<Transaction> getAllUserOutComeTransactions(UUID userId) {
         List<Transaction> allTrans = getAll();
         List<Transaction> userTransactions = new ArrayList<>();
-
         List<Card> allCards  =  cardService.getAllCard(currentUser.getId());
-
         for (Card card : allCards) {
             for (Transaction transaction : allTrans) {
                 if(transaction.getFromCard().equals(card.getId())){

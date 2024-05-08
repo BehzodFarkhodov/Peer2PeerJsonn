@@ -85,7 +85,8 @@ public class TransactionController {
     public static void getAllTransactions() {
         List<Transaction> all = transactionService.getAll();
         all.stream().forEach(System.out::println);
-//            System.out.println("From Card: " + transaction.getFromCard());
+       adminMenu();
+      //  System.out.println("From Card: " + transaction.getFromCard());
 //            System.out.println("To Card: " + transaction.getToCard());
 //            System.out.println("Amount: " + transaction.getAmount());
 //            System.out.println("--------------------");
