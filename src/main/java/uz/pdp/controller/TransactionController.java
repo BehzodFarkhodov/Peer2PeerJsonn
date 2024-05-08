@@ -63,13 +63,13 @@ public class TransactionController {
             String command = scannerStr.nextLine();
             switch (command) {
                 case "1" -> {
-                    getAllTransactions();
+                    getALLTransaction();
                 }
                 case "2" -> {
-                    getLastWeekTransactions();
+                    getAllUserIncomeTransaction();
                 }
                 case "3" -> {
-                    income();
+                   getAllUserOutTransaction();
                 }
                 case "0" -> {
                     userMenu();
@@ -80,10 +80,6 @@ public class TransactionController {
             }
         }
 
-
-    }
-
-    private static void income() {
 
     }
 
@@ -103,10 +99,28 @@ public class TransactionController {
         List<Transaction> lastWeekTransactions = new ArrayList<>();
         LocalDateTime lastWeek = LocalDateTime.now().minusWeeks(1);
         for (Transaction transaction : AllTransaction) {
-            if (transaction.getTransactionDate().isAfter(lastWeek)) {
+            if (transaction.getCreatedDate()
+                    .isAfter(lastWeek)) {
                 lastWeekTransactions.add(transaction);
             }
         }
+    }
+
+
+
+    public static void getALLTransaction(){
+        List<Transaction> getAllTransaction = transactionService.getUserTransactions(currentUser.getId());
+        getAllTransaction.forEach(System.out::println);
+    }
+
+    public static  void getAllUserIncomeTransaction(){
+        List<Transaction> transactions = transactionService.getAllUserIncomeTransactions(currentUser.getId());
+        transactions.stream().forEach(System.out::println);
+    }
+
+    public static void getAllUserOutTransaction(){
+        List<Transaction> transactions = transactionService.getAllUserOutComeTransactions(currentUser.getId());
+        transactions.stream().forEach(System.out::println);
     }
 
     public static void currency() {
@@ -162,7 +176,8 @@ public class TransactionController {
                 System.out.println(i++ + " ." + bank1);
             }
 
-            int choose = inputInt("Choose one Valuate ->") - 1;
+            System.out.println("Choose one Valuate ->");
+            int choose = scannerInt.nextInt() - 1;
 
 
             Bank bank = banks.get(choose);

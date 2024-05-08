@@ -26,7 +26,7 @@ public abstract class BaseModel {
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     protected LocalDateTime createdDate;
     protected boolean isActive = true;
-    public LocalDateTime transactionDate;
+
 
 
 }

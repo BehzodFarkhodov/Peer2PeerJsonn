@@ -1,57 +1,17 @@
 [ {
-  "id" : "19fa5716-8757-4744-b24e-fe6827fe485f",
-  "createdDate" : "06/05/2024 16:59:10",
+  "id" : "d7de991a-251b-4c1c-a6f9-d750e78d1323",
+  "createdDate" : "27/04/2024 17:50:30",
   "name" : "1",
   "username" : "1",
   "password" : "1",
   "role" : "ADMIN",
   "active" : true
 }, {
-  "id" : "3a1e579d-94bb-4a13-b053-1cbfefb548c5",
-  "createdDate" : "06/05/2024 16:59:10",
+  "id" : "2afe3033-5234-4bcc-a171-0de2d4286825",
+  "createdDate" : "27/04/2024 17:50:30",
   "name" : "2",
   "username" : "2",
   "password" : "2",
-  "role" : "USER",
-  "active" : true
-}, {
-  "id" : "927a5bb5-5a63-432e-8656-19e619f7270e",
-  "createdDate" : "06/05/2024 21:20:07",
-  "name" : "qwe",
-  "username" : "qwe",
-  "password" : "qwe",
-  "role" : "USER",
-  "active" : true
-}, {
-  "id" : "26748655-4f8b-49ea-bf9d-fbf8d1846ded",
-  "createdDate" : "06/05/2024 23:13:03",
-  "name" : "asd",
-  "username" : "asd",
-  "password" : "asd",
-  "role" : "USER",
-  "active" : true
-}, {
-  "id" : "e629ed61-1028-40b5-b015-cd139d969bb4",
-  "createdDate" : "06/05/2024 23:22:19",
-  "name" : "4",
-  "username" : "4",
-  "password" : "4",
-  "role" : "USER",
-  "active" : true
-}, {
-  "id" : "259b3126-414c-43ba-a846-7171481928cb",
-  "createdDate" : "07/05/2024 08:18:16",
-  "name" : "zzz",
-  "username" : "zzz",
-  "password" : "zzz",
-  "role" : "USER",
-  "active" : true
-}, {
-  "id" : "f0665448-52a5-465e-a2ac-6584229ec08d",
-  "createdDate" : "07/05/2024 10:04:28",
-  "name" : "dfg",
-  "username" : "dfg",
-  "password" : "dfg",
   "role" : "USER",
   "active" : true
 } ]
