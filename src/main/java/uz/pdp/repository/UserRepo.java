@@ -6,7 +6,6 @@ import uz.pdp.model.User;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.function.Supplier;
 
 public class UserRepo extends BaseRepo<User> {
 
@@ -24,16 +23,10 @@ public class UserRepo extends BaseRepo<User> {
     }
 
 
-    public User findByUsername(String username) throws DataNotFoundException {
+    public User findByUsername(String username) {
         return getAll().stream()
                 .filter(user -> user.getUsername().equals(username))
-                .findFirst()
-                .orElseThrow(new Supplier<DataNotFoundException>() {
-                    @Override
-                    public DataNotFoundException get() {
-                        return new DataNotFoundException("data not found");
-                    }
-                });
+                .findAny().orElse(null);
     }
 
 
