@@ -69,7 +69,7 @@ public class TransactionController {
                     getLastWeekTransactions();
                 }
                 case "3" -> {
-
+                    income();
                 }
                 case "0" -> {
                     userMenu();
@@ -80,6 +80,10 @@ public class TransactionController {
             }
         }
 
+
+    }
+
+    private static void income() {
 
     }
 
@@ -113,7 +117,7 @@ public class TransactionController {
             switch (command) {
                 case "1" -> currencySum();
                 case "2" -> currencyAnother();
-                case "0"->{
+                case "0" -> {
                     userMenu();
                 }
             }

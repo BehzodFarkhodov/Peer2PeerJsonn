@@ -18,8 +18,6 @@ public class BaseRepo<T extends BaseModel> {
     protected Class<T> type;
     protected static ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 
-    private final TypeReference<ArrayList<T>> typeReference = new TypeReference<ArrayList<T>>() {
-    };
 
 
     public void add(T t) {
