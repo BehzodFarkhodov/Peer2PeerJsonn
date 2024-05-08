@@ -16,10 +16,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static uz.pdp.controller.Main.*;
@@ -72,9 +69,15 @@ public class TransactionController {
             System.out.println(i++ + ". " + card.getCardNumber() + " | " + card.getBalance() + " | " + card.getCategory() + " | " + card.getOwnerId());
         }
         System.out.println("Choose one -> | 0 -> Exit ");
-        int index = scannerInt.nextInt() - 1;
+        int index = 0;
+        try {
+            index = scannerInt.nextInt() - 1;
+            if (index == -1) userMenu();
+        } catch (InputMismatchException | IndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
 
-        if (index == -1) userMenu();
+        }
+
 
         System.out.print("Enter a to Card -> ");
         String toCard = scannerStr.nextLine();
@@ -88,10 +91,14 @@ public class TransactionController {
         }
 
         System.out.println("Choose one -> | 0 -> Exit");
-        int choice = scannerInt.nextInt() - 1;
-
-
-        if (choice == -1) userMenu();
+        ;
+        int choice = 0;
+        try {
+            choice = scannerInt.nextInt() - 1;
+            if (choice == -1) userMenu();
+        } catch (InputMismatchException | IndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
+        }
 
         System.out.print("Enter a price 🤑 -> ");
         double price = scannerInt.nextDouble();
@@ -177,6 +184,7 @@ public class TransactionController {
     public static void getALLTransaction() {
         List<Transaction> getAllTransaction = transactionService.getUserTransactions(currentUser.getId());
         getAllTransaction.forEach(System.out::println);
+
 
         System.out.println("1 ---> LAST WEEK TRANSACTIONS  |  2 ---> LAST MONTH TRANSACTIONS  | 0 ---> EXIT");
         String command = scannerStr.nextLine();
@@ -281,7 +289,7 @@ public class TransactionController {
     }
 
     public static void betweenDaysTransaction() {
-        System.out.print("Enter days (dd/MM/yyyy) -> ");
+       System.out.print("Enter days (dd/MM/yyyy) -> ");
         String lsd = null;
         LocalDate date = LocalDate.parse(lsd = scannerStr.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         System.out.print("Enter second day (dd/MM/yyyy) -> ");
@@ -289,6 +297,7 @@ public class TransactionController {
         LocalDate date2 = LocalDate.parse(lsd2 = scannerStr.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         List<Transaction> transactionList = transactionService.getUserTransactionsInPeriod(date, date2);
         transactionList.forEach(System.out::println);
+
     }
 
 
