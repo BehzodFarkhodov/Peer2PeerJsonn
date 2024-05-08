@@ -41,9 +41,6 @@ public class CardService extends BaseService<Card, CardRepo> {
     public List<Card> getAllCards(UUID userId) {
         return repository.getAllCards();
     }
-    public boolean deleteCard(String cardNumber) {
-        return repository.deleteCard(cardNumber);
-    }
     public void delete(UUID id) {
        repository.delete(id);
     }
