@@ -147,10 +147,11 @@ public class TransactionController {
             for (Bank bank1 : banks) {
                 System.out.println(i++ + "." + bank1);
             }
+            System.out.println("Choose one Valuate : ");
+            int choice = scannerInt.nextInt()-1;
 
-            int choose = inputInt("Choose one Valuate ->") - 1;
+            Bank bank = banks.get(choice);
 
-            Bank bank = banks.get(choose);
             System.out.println("Choose Enter Summa :");
             double summa = scannerDouble.nextDouble();
 
@@ -174,10 +175,8 @@ public class TransactionController {
             System.out.println("Choose one Valuate ->");
             int choose = scannerInt.nextInt() - 1;
 
-
             Bank bank = banks.get(choose);
             double enterSumma = inputDouble("Choose Enter Summa :");
-
             System.out.println(enterSumma / bank.getRate());
 
 

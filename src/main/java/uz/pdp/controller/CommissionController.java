@@ -25,11 +25,16 @@ public class CommissionController {
                mainMenu();
             }
         }
+
     }
 
     public static void changeCardsCommission(Category category1,Category category2){
         System.out.println("Enter the commission (%)  : ");
-        double percentage = scannerDouble.nextDouble();
+        Double percentage = scannerDouble.nextDouble();
+
+        commissionService.add(new Commission(category1,category2,percentage));
+        System.out.println("Commission changed");
+
 
     }
 }
