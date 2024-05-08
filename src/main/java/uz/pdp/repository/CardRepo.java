@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class CardRepo extends BaseRepo<Card> {
 
-    public static final CardRepo cardRepo = new CardRepo();
+   public static final CardRepo cardRepo = new CardRepo();
 
     public static CardRepo getInstance() {
         return cardRepo;
@@ -25,7 +25,7 @@ public class CardRepo extends BaseRepo<Card> {
         ArrayList<Card> cards = getAll();
         return cards.stream()
                 .filter(card -> card.getOwnerId().equals(userId) && card.isActive())
-                .toList();
+                .collect(Collectors.toList());
     }
 
     public List<Card> getAllCards() {
