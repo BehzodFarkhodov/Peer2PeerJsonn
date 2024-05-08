@@ -14,7 +14,6 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.UUID;
 
 import static uz.pdp.controller.Main.*;
@@ -42,7 +41,7 @@ public class TransactionController {
         System.out.println("Enter the amount to send: ");
         double amount = scannerDouble.nextDouble();
 
-        double commission = TransactionService.calculateCommission(amount); // 1% komissiya
+        double commission = TransactionService.calculateCommission(amount);
         double totalAmount = amount + commission;
 
         System.out.println("Are you sure you want to send " + amount + " UZS to " + receiverCardNumber + " with a commission of " + commission + " UZS? (yes/no)");
@@ -83,15 +82,15 @@ public class TransactionController {
 
     }
 
-    public static List<Transaction> getAllTransactions() {
-        List<Transaction> all = transactionService.getAllTransactionsFromFile();
-        all.forEach(transaction -> {
-            System.out.println("From Card: " + transaction.getFromCard());
-            System.out.println("To Card: " + transaction.getToCard());
-            System.out.println("Amount: " + transaction.getAmount());
-            System.out.println("--------------------");
-        });
-        return all;
+    public static void getAllTransactions() {
+        List<Transaction> all = transactionService.getAll();
+        all.stream().forEach(System.out::println);
+//            System.out.println("From Card: " + transaction.getFromCard());
+//            System.out.println("To Card: " + transaction.getToCard());
+//            System.out.println("Amount: " + transaction.getAmount());
+//            System.out.println("--------------------");
+
+
     }
 
     public static void getLastWeekTransactions() {
@@ -142,24 +141,20 @@ public class TransactionController {
     private static void currencyAnother() {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-
             ArrayList<Bank> banks = objectMapper.readValue(new URL("https://cbu.uz/uz/arkhiv-kursov-valyut/json/"), new TypeReference<ArrayList<Bank>>() {
             });
             int i = 1;
             for (Bank bank1 : banks) {
-                System.out.println(i++ + " ." + bank1);
+                System.out.println(i++ + "." + bank1);
             }
 
             int choose = inputInt("Choose one Valuate ->") - 1;
-
 
             Bank bank = banks.get(choose);
             System.out.println("Choose Enter Summa :");
             double summa = scannerDouble.nextDouble();
 
             System.out.println(bank.getRate() / summa);
-
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

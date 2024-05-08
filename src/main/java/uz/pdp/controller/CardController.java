@@ -75,9 +75,7 @@ public class CardController {
             System.out.println(Message.NOTFOUND);
         } else {
             for (Card card : cards) {
-                System.out.println("Card Number: " + card.getCardNumber());
-                System.out.println("Card Type: " + card.getCategory());
-                System.out.println("Balance: " + card.getBalance());
+                System.out.println("Card Number: " + card.getCardNumber() + " | " + "Card Type: " + card.getCategory() + " | " + "Balance: " + card.getBalance());
                 System.out.println("------------------------");
             }
         }
