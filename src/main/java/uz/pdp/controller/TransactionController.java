@@ -2,6 +2,7 @@ package uz.pdp.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import uz.pdp.exception.DataNotFoundException;
 import uz.pdp.model.Card;
 import uz.pdp.model.Transaction;
 import uz.pdp.service.TransactionService;
@@ -51,7 +52,11 @@ public class TransactionController {
             return;
         }
 
-        transactionService.addTransaction(senderCard.getId(), receiverCard.getId(), totalAmount);
+        try {
+            transactionService.addTransaction(senderCard.getId(), receiverCard.getId(), totalAmount);
+        } catch (DataNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
         transactionService.add(new Transaction(senderCard.getId(), receiverCard.getId(), amount));
     }

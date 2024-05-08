@@ -1,5 +1,6 @@
 package uz.pdp.service;
 
+import uz.pdp.exception.DataNotFoundException;
 import uz.pdp.model.Transaction;
 import uz.pdp.repository.TransactionRepo;
 
@@ -23,7 +24,7 @@ public class TransactionService extends BaseService<Transaction, TransactionRepo
     public List<Transaction> getUserTransactions(UUID userId) {
         return repository.getAllUserTransactions(userId);
     }
-    public void addTransaction(UUID fromCard, UUID toCard, double amount) {
+    public void addTransaction(UUID fromCard, UUID toCard, double amount) throws DataNotFoundException {
         repository.addTransaction(fromCard, toCard, amount);
     }
     public List<Transaction> getAllTransactionsFromFile() {

@@ -22,14 +22,12 @@ public class UserService extends BaseService<User, UserRepo> {
     }
 
 
-    public User findByUsername(String username) {
+    public User findByUsername(String username) throws DataNotFoundException {
         return repository.findByUsername(username);
     }
 
 
-
-
-    public User signIn(String username, String password) {
+    public User signIn(String username, String password) throws DataNotFoundException {
         User byUsername = repository.findByUsername(username);
         if (byUsername.getPassword().equals(password)) {
             return byUsername;
@@ -39,11 +37,8 @@ public class UserService extends BaseService<User, UserRepo> {
 
     @Override
     public boolean check(User user) {
-        for (User user1 : getAll()) {
-            if (user1.getUsername().equals(user.getUsername())){
-                return true;
-            }
-        }
-        return false;
+        return getAll().stream()
+                .anyMatch((user1 -> user1.getUsername().equals(user.getUsername())));
+
     }
 }

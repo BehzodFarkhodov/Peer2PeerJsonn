@@ -9,7 +9,9 @@ import uz.pdp.model.BaseModel;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 public class BaseRepo<T extends BaseModel> {
@@ -18,8 +20,6 @@ public class BaseRepo<T extends BaseModel> {
     protected Class<T> type;
     protected static ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 
-    private final TypeReference<ArrayList<T>> typeReference = new TypeReference<ArrayList<T>>() {
-    };
 
 
     public void add(T t) {
@@ -31,14 +31,10 @@ public class BaseRepo<T extends BaseModel> {
 
 
 
-    public ArrayList<T> getActive() {
-        ArrayList<T> ts = new ArrayList<>();
-        for (T t : getAll()) {
-            if (t.isActive()) {
-                ts.add(t);
-            }
-        }
-        return ts;
+    public List<T> getActive() {
+       return  getAll().stream()
+               .filter(T:: isActive)
+               .collect(Collectors.toList());
     }
 
     public void write(ArrayList<T> data) {

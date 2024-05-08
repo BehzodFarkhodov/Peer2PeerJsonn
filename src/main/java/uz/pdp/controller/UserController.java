@@ -3,6 +3,7 @@ package uz.pdp.controller;
 
 import uz.pdp.enumerator.Role;
 
+import uz.pdp.exception.DataNotFoundException;
 import uz.pdp.model.User;
 import uz.pdp.util.Message;
 
@@ -40,7 +41,11 @@ public class UserController {
         System.out.print("Enter the password : ");
         String password = scannerStr.nextLine();
 
-        currentUser = userService.signIn(username, password);
+        try {
+            currentUser = userService.signIn(username, password);
+        } catch (DataNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         if (Objects.isNull(currentUser)) {
             System.out.println(Message.WRONG);
         } else if (currentUser.getRole().equals(Role.USER)) {
