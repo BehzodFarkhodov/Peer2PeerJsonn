@@ -1,11 +1,14 @@
 package uz.pdp.repository;
 
+import uz.pdp.enumerator.Category;
 import uz.pdp.exception.DataNotFoundException;
 import uz.pdp.model.Card;
+import uz.pdp.model.Commission;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -57,6 +60,27 @@ public void update(Card card) {
             .collect(Collectors.toList());
     write((ArrayList<Card>) updatedCards);
 }
+
+    public void transferMoney(UUID fromCard, UUID toCard, Double price, Double commission){
+        ArrayList<Card> cards = getAll();
+        cards.forEach(card -> {
+            if(card.getId().equals(fromCard)){
+                double v = card.getBalance() - price - commission;
+                card.setBalance(v);
+            } else if(card.getId().equals(toCard)){
+                double v = card.getBalance() + price;
+                card.setBalance(v);
+            }
+
+        });
+        updateDateFiles(cards);
+    }
+    public List<Card> getAllCards(String card){
+        ArrayList<Card> cards = new ArrayList<>(getAll());
+        return cards.stream().filter(card1 -> card1.getCardNumber().equals(card) && card1.isActive()).collect(Collectors.toList());
+    }
+
+
 
 
 

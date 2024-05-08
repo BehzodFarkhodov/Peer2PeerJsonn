@@ -15,10 +15,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -68,7 +65,7 @@ public List<Transaction> getAllUserTransactions(UUID userId) {
 
 
 
-  /*  public List<Transaction> getAllUserIncomeTransactions(UUID userId) {
+/*  public List<Transaction> getAllUserIncomeTransactions(UUID userId) {
         List<Transaction> allTrans = getAll();
         List<Transaction> userTransactions = new ArrayList<>();
 
@@ -122,23 +119,23 @@ public List<Transaction> getAllUserTransactions(UUID userId) {
 
 
 
-    public void addTransaction(UUID fromCard, UUID toCard, double amount) throws DataNotFoundException {
-        Transaction transaction = new Transaction(fromCard, toCard, amount);
-        add(transaction);
-        CardRepo cardRepo = CardRepo.getInstance();
-        Card fromCardObj = cardRepo.getById(fromCard);
-        Card toCardObj = cardRepo.getById(toCard);
-        if (fromCardObj != null && toCardObj != null) {
-            fromCardObj.setBalance(fromCardObj.getBalance() - amount);
-            toCardObj.setBalance(toCardObj.getBalance() + amount);
-
-            cardRepo.update(fromCardObj);
-            cardRepo.update(toCardObj);
-            System.out.println(Message.SUCCESSFULLY);
-        } else {
-            System.out.println(Message.WRONG);
-        }
-    }
+//    public void addTransaction(UUID fromCard, UUID toCard, double amount) throws DataNotFoundException {
+//        Transaction transaction = new Transaction(fromCard, toCard, amount);
+//        add(transaction);
+//        CardRepo cardRepo = CardRepo.getInstance();
+//        Card fromCardObj = cardRepo.getById(fromCard);
+//        Card toCardObj = cardRepo.getById(toCard);
+//        if (fromCardObj != null && toCardObj != null) {
+//            fromCardObj.setBalance(fromCardObj.getBalance() - amount);
+//            toCardObj.setBalance(toCardObj.getBalance() + amount);
+//
+//            cardRepo.update(fromCardObj);
+//            cardRepo.update(toCardObj);
+//            System.out.println(Message.SUCCESSFULLY);
+//        } else {
+//            System.out.println(Message.WRONG);
+//        }
+//    }
     public List<Transaction> getAllTransactionsFromFile() {
         List<Transaction> transactions = new ArrayList<>();
         try {
@@ -155,15 +152,23 @@ public List<Transaction> getAllUserTransactions(UUID userId) {
         ArrayList<Transaction> transactions = getAll();
         return transactions.stream().filter(transaction -> transaction.getFromCard().equals(id)).toList();
     }
+    public List<Transaction> getAllTransactionsLastWeek(LocalDate localDate, UUID id){
+        LocalDate localDate1 = localDate.minusDays(7);
+        List<Transaction> transactions = getAllUserTransactions(id);
+       return transactions.stream().filter(transaction -> transaction.getCreatedDate().isAfter(localDate.atStartOfDay())).collect(Collectors.toList());
+    }
+
     public List<Transaction> getIncomeTransactions(UUID id){
         ArrayList<Transaction> transactions = getAll();
         return transactions.stream().filter(transaction -> transaction.getToCard().equals(id)).collect(Collectors.toList());
     }
 
 
-    public List<Transaction> getUserTransactionsInPeriod(UUID userId, LocalDateTime date1, LocalDateTime date2) {
-        List<Transaction> transactions = getAllUserTransactions(userId);
-        return transactions.stream().filter(transaction -> transaction.getCreatedDate().isAfter(date1) &&
-                transaction.getCreatedDate().isBefore(date2)).toList();
+    public List<Transaction> getUserTransactionsInPeriod(LocalDate date, LocalDate date2){
+        ArrayList<Transaction> transactions = new ArrayList<>(getAll());
+        return transactions.stream().
+                filter(transaction -> transaction.getCreatedDate().isAfter(date.atStartOfDay()) && transaction.getCreatedDate().
+                        isBefore(date2.atStartOfDay())).collect(Collectors.toList());
     }
+
 }

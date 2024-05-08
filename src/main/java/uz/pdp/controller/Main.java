@@ -67,7 +67,7 @@ public class Main {
                     crudCard();
                 }
                 case "2" -> {
-                    TransactionController.peerToPeer(currentUser.getId());
+                    TransactionController.transferMoney();
                 }
                 case "3" -> {
                     TransactionController.transactionsHistory();
@@ -77,9 +77,7 @@ public class Main {
                 }
                 case "0" -> {
                     mainMenu();
-                    return;
                 }
-
 
             }
         }
@@ -94,7 +92,7 @@ public class Main {
                     TransactionController.getAllTransactions();
                 }
                 case "2" -> {
-
+                    TransactionController.betweenDaysTransaction();
                 }
                 case "3" -> {
                     CommissionController.changeCommission();
