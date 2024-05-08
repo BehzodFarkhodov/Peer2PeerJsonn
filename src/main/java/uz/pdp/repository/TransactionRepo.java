@@ -2,6 +2,7 @@ package uz.pdp.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import uz.pdp.exception.DataNotFoundException;
 import uz.pdp.model.Card;
 import uz.pdp.model.Transaction;
 import uz.pdp.model.User;
@@ -67,7 +68,7 @@ public List<Transaction> getAllUserTransactions(UUID userId) {
 
 
 
-    public List<Transaction> getAllUserIncomeTransactions(UUID userId) {
+  /*  public List<Transaction> getAllUserIncomeTransactions(UUID userId) {
         List<Transaction> allTrans = getAll();
         List<Transaction> userTransactions = new ArrayList<>();
 
@@ -81,14 +82,21 @@ public List<Transaction> getAllUserTransactions(UUID userId) {
             }
         }
         return userTransactions;
+    }*/
+
+    public List<Transaction> getAllUserIncomeTransactions(UUID userId) {
+        List<Card> cards=cardService.getAllCards(currentUser.getId());
+        return getAll().stream()
+                .filter(transaction -> cards.stream()
+                        .map(Card::getId)
+                        .anyMatch((cardId -> cardId.equals(transaction.getToCard()))))
+                .collect(Collectors.toList());
     }
 
-    public List<Transaction> getAllUserOutComeTransactions(UUID userId) {
+   /* public List<Transaction> getAllUserOutComeTransactions(UUID userId) {
         List<Transaction> allTrans = getAll();
         List<Transaction> userTransactions = new ArrayList<>();
-
         List<Card> allCards  =  cardService.getAllCard(currentUser.getId());
-
         for (Card card : allCards) {
             for (Transaction transaction : allTrans) {
                 if(transaction.getFromCard().equals(card.getId())){
@@ -97,12 +105,24 @@ public List<Transaction> getAllUserTransactions(UUID userId) {
             }
         }
         return userTransactions;
+    }*/
+
+    public List<Transaction> getAllUserOutComeTransactions(UUID userId) {
+        List<Card>cards=cardService.getAllCards(currentUser.getId());
+
+        return getAll().stream()
+                .filter((transaction -> cards.stream()
+                        .map(Card::getId)
+                        .anyMatch((cardId-> cardId.equals(transaction.getFromCard())))))
+                .collect(Collectors.toList());
+
+
     }
 
 
 
 
-    public void addTransaction(UUID fromCard, UUID toCard, double amount) {
+    public void addTransaction(UUID fromCard, UUID toCard, double amount) throws DataNotFoundException {
         Transaction transaction = new Transaction(fromCard, toCard, amount);
         add(transaction);
         CardRepo cardRepo = CardRepo.getInstance();
