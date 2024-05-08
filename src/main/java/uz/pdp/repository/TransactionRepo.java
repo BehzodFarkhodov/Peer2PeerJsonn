@@ -16,7 +16,9 @@ import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class TransactionRepo extends BaseRepo<Transaction> {
@@ -30,21 +32,38 @@ public class TransactionRepo extends BaseRepo<Transaction> {
         super.type = Transaction.class;
     }
 
-    public List<Transaction> getAllUserTransactions(UUID userId) {
-        List<Transaction> allTrans = getAll();
-        List<Transaction> userTransactions = new ArrayList<>();
+//    public List<Transaction> getAllUserTransactions(UUID userId) {
+//        List<Transaction> allTrans = getAll();
+//        List<Transaction> userTransactions = new ArrayList<>();
+//
+//        List<Card> allCards  =  cardService.getAllCard(currentUser.getId());
+//
+//        for (Card card : allCards) {
+//            for (Transaction transaction : allTrans) {
+//                if(transaction.getFromCard().equals(card.getId()) || transaction.getToCard().equals(card.getId())){
+//                    userTransactions.add(transaction);
+//                }
+//            }
+//        }
+//        return userTransactions;
+//    }
+public List<Transaction> getAllUserTransactions(UUID userId) {
+    List<Transaction> allTrans = getAll();
+    List<Transaction> userTransactions = new ArrayList<>();
 
-        List<Card> allCards  =  cardService.getAllCard(currentUser.getId());
+    Map<UUID, Card> userCardsMap = cardService.getAllCards(userId)
+            .stream()
+            .collect(Collectors.toMap(Card::getId, Function.identity()));
 
-        for (Card card : allCards) {
-            for (Transaction transaction : allTrans) {
-                if(transaction.getFromCard().equals(card.getId()) || transaction.getToCard().equals(card.getId())){
-                    userTransactions.add(transaction);
-                }
-            }
+    for (Transaction transaction : allTrans) {
+        if (userCardsMap.containsKey(transaction.getFromCard()) || userCardsMap.containsKey(transaction.getToCard())) {
+            userTransactions.add(transaction);
         }
-        return userTransactions;
     }
+    return userTransactions;
+}
+
+
 
 
 
@@ -120,17 +139,6 @@ public class TransactionRepo extends BaseRepo<Transaction> {
         ArrayList<Transaction> transactions = getAll();
         return transactions.stream().filter(transaction -> transaction.getToCard().equals(id)).collect(Collectors.toList());
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
     public List<Transaction> getUserTransactionsInPeriod(UUID userId, LocalDateTime date1, LocalDateTime date2) {
