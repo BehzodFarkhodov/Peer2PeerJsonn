@@ -41,7 +41,7 @@ public class TransactionController {
         System.out.println("Enter the amount to send: ");
         double amount = scannerDouble.nextDouble();
 
-        double commission = TransactionService.calculateCommission(amount); // 1% komissiya
+        double commission = TransactionService.calculateCommission(amount);
         double totalAmount = amount + commission;
 
         System.out.println("Are you sure you want to send " + amount + " UZS to " + receiverCardNumber + " with a commission of " + commission + " UZS? (yes/no)");
@@ -62,13 +62,13 @@ public class TransactionController {
             String command = scannerStr.nextLine();
             switch (command) {
                 case "1" -> {
-                    getAllTransactions();
+                    getALLTransaction();
                 }
                 case "2" -> {
-                    getLastWeekTransactions();
+                    getAllUserIncomeTransaction();
                 }
                 case "3" -> {
-
+                   getAllUserOutTransaction();
                 }
                 case "0" -> {
                     userMenu();
@@ -82,15 +82,15 @@ public class TransactionController {
 
     }
 
-    public static List<Transaction> getAllTransactions() {
-        List<Transaction> all = transactionService.getAllTransactionsFromFile();
-        all.forEach(transaction -> {
-            System.out.println("From Card: " + transaction.getFromCard());
-            System.out.println("To Card: " + transaction.getToCard());
-            System.out.println("Amount: " + transaction.getAmount());
-            System.out.println("--------------------");
-        });
-        return all;
+    public static void getAllTransactions() {
+        List<Transaction> all = transactionService.getAll();
+        all.stream().forEach(System.out::println);
+//            System.out.println("From Card: " + transaction.getFromCard());
+//            System.out.println("To Card: " + transaction.getToCard());
+//            System.out.println("Amount: " + transaction.getAmount());
+//            System.out.println("--------------------");
+
+
     }
 
     public static void getLastWeekTransactions() {
@@ -105,11 +105,28 @@ public class TransactionController {
         }
     }
 
+
+
+    public static void getALLTransaction(){
+        List<Transaction> getAllTransaction = transactionService.getUserTransactions(currentUser.getId());
+        getAllTransaction.forEach(System.out::println);
+    }
+
+    public static  void getAllUserIncomeTransaction(){
+        List<Transaction> transactions = transactionService.getAllUserIncomeTransactions(currentUser.getId());
+        transactions.stream().forEach(System.out::println);
+    }
+
+    public static void getAllUserOutTransaction(){
+        List<Transaction> transactions = transactionService.getAllUserOutComeTransactions(currentUser.getId());
+        transactions.stream().forEach(System.out::println);
+    }
+
     public static void currency() {
 
         while (true) {
             System.out.println("1 Sum to another Currency  \t 2 Another to Sum Currency  \t 0 ExT ");
-            String command = inputStr("Choose -> ");
+            String command = inputStr("Choose one  -> ");
             switch (command) {
                 case "1" -> currencySum();
                 case "2" -> currencyAnother();
@@ -124,23 +141,20 @@ public class TransactionController {
     private static void currencyAnother() {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-
             ArrayList<Bank> banks = objectMapper.readValue(new URL("https://cbu.uz/uz/arkhiv-kursov-valyut/json/"), new TypeReference<ArrayList<Bank>>() {
             });
             int i = 1;
             for (Bank bank1 : banks) {
-                System.out.println(i++ + " ." + bank1);
+                System.out.println(i++ + "." + bank1);
             }
 
             int choose = inputInt("Choose one Valuate ->") - 1;
 
-
             Bank bank = banks.get(choose);
-            double enterSumma = inputInt("Choose Enter Summa :");
+            System.out.println("Choose Enter Summa :");
+            double summa = scannerDouble.nextDouble();
 
-            System.out.println(bank.getRate() / enterSumma);
-
-
+            System.out.println(bank.getRate() / summa);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -162,7 +176,7 @@ public class TransactionController {
 
 
             Bank bank = banks.get(choose);
-            double enterSumma = inputInt("Choose Enter Summa :");
+            double enterSumma = inputDouble("Choose Enter Summa :");
 
             System.out.println(enterSumma / bank.getRate());
 

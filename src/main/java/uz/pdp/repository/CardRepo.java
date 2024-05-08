@@ -43,7 +43,8 @@ public class CardRepo extends BaseRepo<Card> {
         }
         return false;
     }
-    public Card getById(UUID id) {
+
+        public Card getById(UUID id) {
         ArrayList<Card> allCards = getAll();
         for (Card card : allCards) {
             if (card.getId().equals(id)) {
@@ -59,12 +60,6 @@ public class CardRepo extends BaseRepo<Card> {
                 .collect(Collectors.toList());
         write((ArrayList<Card>) updatedCards);
     }
-
-
-
-
-
-
 
 
 }
