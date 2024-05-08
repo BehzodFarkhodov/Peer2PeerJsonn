@@ -1,6 +1,5 @@
 package uz.pdp.repository;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.type.TypeFactory;
@@ -10,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -44,10 +44,21 @@ public class BaseRepo<T extends BaseModel> {
             throw new RuntimeException(e);
         }
     }
+    public Optional<T> findById(UUID id){
+        ArrayList<T> data = read();
+       return data.stream().filter(t -> t.getId().equals(id)).findFirst();
+    }
 
     public ArrayList<T> read() {
         try {
             return objectMapper.readValue(new File(path), TypeFactory.defaultInstance().constructCollectionType(ArrayList.class, type));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public <T extends BaseModel> void updateDateFiles(List<T> data) {
+        try {
+            objectMapper.writeValue(new File(path), data);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

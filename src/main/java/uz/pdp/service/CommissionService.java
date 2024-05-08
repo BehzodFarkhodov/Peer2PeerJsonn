@@ -4,6 +4,8 @@ import uz.pdp.enumerator.Category;
 import uz.pdp.model.Commission;
 import uz.pdp.repository.CommissionRepo;
 
+import java.util.UUID;
+
 public class CommissionService extends BaseService<Commission, CommissionRepo> {
 
     public static final CommissionService commissionService = new CommissionService();

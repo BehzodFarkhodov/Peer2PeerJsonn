@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import uz.pdp.enumerator.Category;
 
 import java.util.UUID;
 @AllArgsConstructor
@@ -12,9 +13,9 @@ import java.util.UUID;
 @Setter
 
 public class Commission extends BaseModel{
-    private UUID fromCard;
-    private UUID toCard;
-    private double percentage;
+    private Category fromCard;
+    private Category toCard;
+    private Double percentage;
 }
 
 

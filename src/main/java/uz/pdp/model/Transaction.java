@@ -12,15 +12,16 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
 public class Transaction extends BaseModel {
     private UUID fromCard;
     private UUID toCard;
     private double amount;
+    private Double calculatedCommission;
 
 
 
