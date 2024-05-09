@@ -6,6 +6,7 @@ import uz.pdp.exception.DataNotFoundException;
 import uz.pdp.model.Card;
 import uz.pdp.model.Commission;
 import uz.pdp.model.Transaction;
+import uz.pdp.model.User;
 import uz.pdp.service.TransactionService;
 import uz.pdp.service.UserService;
 import uz.pdp.util.Message;
@@ -144,6 +145,7 @@ public class TransactionController {
                 }
                 default -> {
                     System.out.println(Message.WRONG);
+                    return;
                 }
             }
         }
@@ -153,7 +155,7 @@ public class TransactionController {
 
     public static void getAllTransactions() {
         List<Transaction> all = transactionService.getAll();
-        all.stream().forEach(System.out::println);
+        all.forEach(System.out::println);
         adminMenu();
     }
 
@@ -342,6 +344,9 @@ public class TransactionController {
         transactionList.forEach(System.out::println);
 
     }
+
+
+
 
 
 }
