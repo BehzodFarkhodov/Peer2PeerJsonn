@@ -63,7 +63,11 @@ public class TransactionController {
 //      z  transactionService.add(new Transaction(senderCard.getId(), receiverCard.getId(), amount));
 //    }
     public static void transferMoney() {
-        List<Card> cards = cardService.getAllCards(currentUser.getId());
+        List<Card> cards = cardService.getAllCard(currentUser.getId());
+        if(cards.isEmpty()){
+            System.out.println("Cards not found ");
+            userMenu();
+        }
         int i = 1;
         for (Card card : cards) {
             System.out.println(i++ + ". " + card.getCardNumber() + " | " + card.getBalance() + " | " + card.getCategory() + " | " + card.getOwnerId());
@@ -167,7 +171,7 @@ public class TransactionController {
 
 
     public static void getAllTransactionsLastMonth() {
-        List<Transaction> transactions = getAllTransactionsLastMonth(LocalDate.now(), currentUser.getId());
+        List<Transaction> transactions = getAllTransactionsLastMonth(LocalDate.now(),currentUser.getId());
         transactions.forEach(System.out::println);
     }
 
@@ -178,15 +182,31 @@ public class TransactionController {
     }
 
     public static void getAllTransactionsLastWeek() {
-        List<Transaction> transactions = getAllTransactionsLastWeek(LocalDate.now(), currentUser.getId());
+        List<Transaction> transactions = getAllTransactionsLastWeek(LocalDate.now(),currentUser.getId());
         transactions.forEach(System.out::println);
     }
 
 
     public static void getALLTransaction() {
-        List<Transaction> getAllTransaction = transactionService.getUserTransactions(currentUser.getId());
-        getAllTransaction.forEach(System.out::println);
+        List<Card> cards = cardService.getAllCard(currentUser.getId());
+        if(cards.isEmpty()){
+            System.out.println("Cards not found ");
+            userMenu();
+        }
 
+        int i = 1;
+        for (Card card : cards) {
+            System.out.println(i++ + "." + "CARD NUMBER : " + card.getCardNumber() + " | "  + "BALANCE : " + card.getBalance() + " | " + "CARD TYPE : " +  card.getCategory());
+        }
+        System.out.println("Choose your card : ");
+        int choice = scannerInt.nextInt()-1;
+
+        List<Transaction> getAllTransaction = transactionService.getUserTransactions(cards.get(choice).getId());
+       if(getAllTransaction.isEmpty()){
+           System.out.println("Empty");
+           userMenu();
+       }
+        getAllTransaction.forEach(System.out::println);
 
         System.out.println("1 ---> LAST WEEK TRANSACTIONS  |  2 ---> LAST MONTH TRANSACTIONS  | 0 ---> EXIT");
         String command = scannerStr.nextLine();
@@ -210,34 +230,49 @@ public class TransactionController {
 
     public static void getAllUserIncomeTransaction() {
         List<Card> cards = cardService.getAllCard(currentUser.getId());
+        if(cards.isEmpty()){
+            System.out.println("Cards not found ");
+            userMenu();
+        }
         System.out.println("Your all cards : ");
         int i = 1;
         for (Card card : cards) {
-            System.out.println(i++ + "." + card.getCardNumber());
+            System.out.println(i++ + "." + "CARD NUMBER : " + card.getCardNumber() + " | "  + "BALANCE : " + card.getBalance() + " | " + "CARD TYPE : " +  card.getCategory());
         }
-
         System.out.println("Choose your card : ");
         int choice = scannerInt.nextInt() - 1;
         List<Transaction> transactions = transactionService.getIncomeTransactions(cards.get(choice).getId());
         if (transactions.isEmpty()) {
             System.out.println("Empty !");
+            userMenu();
         }
         transactions.forEach(System.out::println);
     }
 
     public static void getAllUserOutTransaction() {
-        List<Transaction> transactions = transactionService.getOutcomeTransactions(currentUser.getId());
-        if (transactions.isEmpty()) {
-            System.out.println("Card Empty bro !");
+        List<Card> cards = cardService.getAllCard(currentUser.getId());
+        if(cards.isEmpty()){
+            System.out.println("Cards not found ");
+            userMenu();
+        }
+        int i = 1;
+        for (Card card : cards) {
+            System.out.println(i++ + "." + "CARD NUMBER : " + card.getCardNumber() + " | "  + "BALANCE : " + card.getBalance() + " | " + "CARD TYPE : " +  card.getCategory());
+        }
+        System.out.println("Choose your card : ");
+        int choice = scannerInt.nextInt() - 1;
+        List<Transaction> transactions = transactionService.getOutcomeTransactions(cards.get(choice).getId());
+        if(transactions.isEmpty()){
+            System.out.println("Empty");
+            userMenu();
         }
         transactions.forEach(System.out::println);
     }
 
     public static void currency() {
-
         while (true) {
             System.out.println("1 ---> SUM TO VALUATE  |  2 ---> VALUATE TO SUM  |  0 ---> EXIT ");
-            String command = inputStr("Choose one  -> ");
+           String command = scannerStr.nextLine();
             switch (command) {
                 case "1" -> currencySum();
                 case "2" -> currencyAnother();
@@ -287,7 +322,7 @@ public class TransactionController {
             int choose = scannerInt.nextInt() - 1;
 
             Bank bank = banks.get(choose);
-            double enterSumma = inputDouble("Choose Enter Summa :");
+            double enterSumma = scannerDouble.nextDouble();
             System.out.println(enterSumma / bank.getRate());
 
 

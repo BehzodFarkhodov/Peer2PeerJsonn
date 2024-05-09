@@ -1,16 +1,8 @@
 [ {
-  "id" : "2c9a6ad3-57ad-43e6-bf10-3d1a2df1fed2",
-  "createdDate" : "28/04/2024 22:17:23",
-  "fromCard" : "622d7ac8-f109-445e-a213-bf254824e4cb",
-  "toCard" : "b53f04b2-ed79-4016-b8b2-b76d50680047",
-  "amount" : 20000.0,
-  "calculatedCommission" : 20000.0,
-  "active" : true
-}, {
-  "id" : "1515ba3d-5e95-4cdf-be19-1422333838b5",
-  "createdDate" : "28/04/2024 23:05:15",
-  "fromCard" : "622d7ac8-f109-445e-a213-bf254824e4cb",
-  "toCard" : "69add923-8006-4c69-a6ad-ebd11a33e7b8",
+  "id" : "6c57a6ec-f0ff-4c2d-9bb5-e74aeb2d0a2a",
+  "createdDate" : "28/04/2024 23:54:59",
+  "fromCard" : "e1860d3b-c612-45f6-9a49-502e6af862e7",
+  "toCard" : "dbddfffd-3dae-40e9-84ff-44eb120e52aa",
   "amount" : 20000.0,
   "calculatedCommission" : 20000.0,
   "active" : true
