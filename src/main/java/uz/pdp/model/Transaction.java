@@ -2,6 +2,7 @@ package uz.pdp.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -17,11 +18,13 @@ import java.util.UUID;
 @Setter
 @ToString
 @AllArgsConstructor
+
 public class Transaction extends BaseModel {
     private UUID fromCard;
     private UUID toCard;
     private double amount;
     private Double calculatedCommission;
+
 
 
 

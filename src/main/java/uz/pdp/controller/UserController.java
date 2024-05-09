@@ -27,7 +27,8 @@ public class UserController {
 
         if (userService.add(new User(name, username, password, Role.USER))) {
             System.out.println(Message.SUCCESSFULLY);
-        } else {
+        }
+        else {
             System.out.println();
         }
     }
