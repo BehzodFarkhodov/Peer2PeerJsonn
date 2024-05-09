@@ -76,7 +76,7 @@ public class TransactionController {
         int index = 0;
         try {
             index = scannerInt.nextInt() - 1;
-            if (index == -1) userMenu();
+            if ((index == -1 || index>cards.size())) userMenu();
             System.out.print("Enter a to Card -> ");
 
             String toCard = scannerStr.nextLine();
@@ -200,7 +200,9 @@ public class TransactionController {
         }
         System.out.println("Choose your card : ");
         int choice = scannerInt.nextInt()-1;
-
+        if(choice <= 0 || choice > cards.size()){
+            userMenu();
+        }
         List<Transaction> getAllTransaction = transactionService.getUserTransactions(cards.get(choice).getId());
        if(getAllTransaction.isEmpty()){
            System.out.println("Empty");

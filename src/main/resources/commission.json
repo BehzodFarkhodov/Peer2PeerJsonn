@@ -1,8 +1,15 @@
 [ {
-  "id" : "e8f46d0e-6529-45f9-a6e7-6bb4fb786627",
-  "createdDate" : "28/04/2024 23:52:23",
+  "id" : "b7bc1435-1718-414a-804f-daa477234d1e",
+  "createdDate" : "29/04/2024 14:12:26",
   "fromCard" : "HUMO",
-  "toCard" : "UZCARD",
-  "percentage" : 2.0,
+  "toCard" : "HUMO",
+  "percentage" : 0.0,
+  "active" : true
+}, {
+  "id" : "033ca080-70a1-442f-be7c-61e1c964ed59",
+  "createdDate" : "29/04/2024 14:13:21",
+  "fromCard" : "HUMO",
+  "toCard" : "HUMO",
+  "percentage" : 0.0,
   "active" : true
 } ]
