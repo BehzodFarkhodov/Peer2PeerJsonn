@@ -41,16 +41,21 @@ public class UserController {
         System.out.print("Enter the password : ");
         String password = scannerStr.nextLine();
 
+
         try {
             currentUser = userService.signIn(username, password);
         } catch (DataNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println("data not found");
         }
+
         if (Objects.isNull(currentUser)) {
             System.out.println(Message.WRONG);
-        } else if (currentUser.getRole().equals(Role.USER)) {
+            mainMenu();
+        }
+        else if (currentUser.getRole().equals(Role.USER)) {
             userMenu();
-        } else if (currentUser.getRole().equals(Role.ADMIN)) {
+        }
+        else if (currentUser.getRole().equals(Role.ADMIN)) {
               Main.adminMenu();
         }
     }

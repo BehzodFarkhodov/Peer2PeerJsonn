@@ -22,11 +22,6 @@ public class UserService extends BaseService<User, UserRepo> {
     }
 
 
-    public User findByUsername(String username) throws DataNotFoundException {
-        return repository.findByUsername(username);
-    }
-
-
     public User signIn(String username, String password) throws DataNotFoundException {
         User byUsername = repository.findByUsername(username);
         if (byUsername.getPassword().equals(password)) {
@@ -34,6 +29,7 @@ public class UserService extends BaseService<User, UserRepo> {
         }
         return null;
     }
+
 
     @Override
     public boolean check(User user) {

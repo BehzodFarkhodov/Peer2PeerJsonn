@@ -27,6 +27,10 @@ public class CardController {
                 case "0" -> {
                     userMenu();
                 }
+                default -> {
+                    System.out.println(Message.WRONG);
+                    return;
+                }
             }
         }
     }
@@ -65,7 +69,12 @@ public class CardController {
             case "0" -> {
                 userMenu();
             }
-            default -> System.out.println(Message.WRONG);
+            default -> {
+                System.out.println(Message.WRONG);
+                createCard();
+            }
+
+
 
         }
         return category;
