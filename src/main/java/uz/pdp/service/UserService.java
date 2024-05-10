@@ -5,6 +5,8 @@ import uz.pdp.model.User;
 import uz.pdp.repository.UserRepo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -37,4 +39,20 @@ public class UserService extends BaseService<User, UserRepo> {
                 .anyMatch((user1 -> user1.getUsername().equals(user.getUsername())));
 
     }
+    public HashMap<User, Double> topUsers(){
+        return repository.topUsers();
+    }
+    public List<User> getAllUser(){
+        return repository.getAllUser();
+    }
+    public User findByUsername(String username) throws DataNotFoundException {
+        return repository.findByUsername(username);
+    }
+    public User getUserByUsername(String username) {
+        return repository.getUserByUsername(username);
+    }
+
+//    public  List<String> topFiveUsers(HashMap<String, Integer> userScores) {
+//        return repository.topFiveUsers(userScores);
+//    }
 }

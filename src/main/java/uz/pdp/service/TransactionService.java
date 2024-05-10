@@ -67,4 +67,18 @@ public class TransactionService extends BaseService<Transaction, TransactionRepo
     }
 
 
+
+
+
+
+
+    public List<Transaction> getAllByUser(UUID id){
+        return repository.getAllByUser(id);
+    }
+    public List<Transaction> getAllByCard(UUID cardId){
+        return repository.getAllByCard(cardId);
+    }
+
+
+
 }

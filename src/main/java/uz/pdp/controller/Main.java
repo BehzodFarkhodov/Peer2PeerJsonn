@@ -1,6 +1,7 @@
 package uz.pdp.controller;
 
 import uz.pdp.enumerator.Role;
+import uz.pdp.model.Transaction;
 import uz.pdp.model.User;
 import uz.pdp.repository.CardRepo;
 import uz.pdp.repository.TransactionRepo;
@@ -10,7 +11,11 @@ import uz.pdp.service.TransactionService;
 import uz.pdp.service.UserService;
 import uz.pdp.util.Message;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import static uz.pdp.controller.CardController.crudCard;
 import static uz.pdp.controller.CardController.deleteCard;
@@ -31,8 +36,8 @@ public class Main {
     public static User currentUser = null;
 
     public static void main(String[] args) {
-
         mainMenu();
+
     }
 
     static {
@@ -42,7 +47,7 @@ public class Main {
 
     static void mainMenu() {
         while (true) {
-            System.out.println("1 ----> SIGN UP  |  2 ----> LOGIN   ");
+            System.out.println("1 ----> SIGN UP ✅ |  2 ----> LOGIN 🔄   ");
             String command = scannerStr.nextLine();
             switch (command) {
                 case "1" -> {
@@ -84,24 +89,24 @@ public class Main {
     }
 
     public static void adminMenu() {
-        System.out.println("1 ---> TRANSACTIONS  |  2 ---> IN PERIOD  |  3 ---> CHANGE COMMISSION  |  0 ---> EXIT");
-        String command = scannerStr.nextLine();
         while (true) {
+            System.out.println("1 ---> TRANSACTIONS  |  2 ---> IN PERIOD  |  3 ---> CHANGE COMMISSION  |  4 ---> TOP USERS  |  0 ---> EXIT  ");
+            String command = scannerStr.nextLine();
             switch (command) {
-                case "1" -> {
-                    TransactionController.getAllTransactions();
+                case "1" -> TransactionController.getAllUsersTransactions();
+                case "2" -> TransactionController.betweenDaysTransaction();
+                case "3" -> CommissionController.changeCommission();
+               //  case "4" -> UserController.topUsers();
+                case "4" -> TransactionController.topUsers2();
+                case "0" ->{
+                  mainMenu();
                 }
-                case "2" -> {
-                    TransactionController.betweenDaysTransaction();
-                }
-                case "3" -> {
-                    CommissionController.changeCommission();
-                }
-                case "0" -> {
-                    mainMenu();
+                default -> {
+                    System.out.println(Message.WRONG);
                 }
             }
         }
     }
+
 
 }

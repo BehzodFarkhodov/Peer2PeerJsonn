@@ -171,4 +171,15 @@ public List<Transaction> getAllUserTransactions(UUID userId) {
                         isBefore(date2.atStartOfDay())).collect(Collectors.toList());
     }
 
+    public List<Transaction> getAllByUser(UUID id){
+        ArrayList<Transaction> transactions = new ArrayList<>(getAll());
+        return transactions.stream().filter(transaction -> transaction.getOwnerId().equals(id)).collect(Collectors.toList());
+    }
+
+    public List<Transaction> getAllByCard(UUID cardId){
+        return getAll().stream()
+                .filter(transaction -> transaction.getFromCard().equals(cardId) || transaction.getToCard().equals(cardId))
+                .collect(Collectors.toList());
+    }
+
 }

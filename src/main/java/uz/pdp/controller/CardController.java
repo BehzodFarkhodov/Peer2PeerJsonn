@@ -73,9 +73,6 @@ public class CardController {
                 System.out.println(Message.WRONG);
                 createCard();
             }
-
-
-
         }
         return category;
     }
@@ -85,9 +82,10 @@ public class CardController {
         if (cards.isEmpty()) {
             System.out.println(Message.NOTFOUND);
         } else {
+            int i = 1;
             for (Card card : cards) {
-                System.out.println("Card Number: " + card.getCardNumber() + " | " + "Card Type: " + card.getCategory() + " | " + "Balance: " + card.getBalance());
-                System.out.println("------------------------");
+                System.out.println(i++ + ". " + "CARD NUMBER: " + card.getCardNumber() + " | " + "CARD TYPE: " + card.getCategory() + " | " + "BALANCE: " + card.getBalance());
+
             }
         }
         return cards;
@@ -95,10 +93,6 @@ public class CardController {
 
     public static void deleteCard() {
         List<Card> cards = showCards();
-        int i = 1;
-        for (Card card : cards) {
-            System.out.println(i++ + "." + card.getCardNumber() + " | " + card.getBalance() + " | " + card.getCategory());
-        }
         System.out.println("Choose one : ");
         int choice = scannerInt.nextInt() - 1;
         if ((choice >= cards.size())) {
