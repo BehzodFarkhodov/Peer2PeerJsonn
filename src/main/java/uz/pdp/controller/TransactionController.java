@@ -146,12 +146,14 @@ public class TransactionController {
                 }
                 default -> {
                     System.out.println(Message.WRONG);
+                    return;
                 }
             }
         }
 
 
     }
+
 
 //    public static void getAllTransactions() {
 //        List<User> users = userService.getAllUser();
@@ -205,6 +207,10 @@ public static void getAllTransactions() {
     List<Card> userCards = cardService.getAllCard(selectedUser.getId());
     if(userCards.isEmpty()){
         System.out.println("Cards not found ❌");
+
+    public static void getAllTransactions() {
+        List<Transaction> all = transactionService.getAll();
+        all.forEach(System.out::println);
         adminMenu();
     }
 
@@ -500,8 +506,6 @@ public static void getAllTransactions() {
 
         adminMenu();
     }
-
-
 
 }
 

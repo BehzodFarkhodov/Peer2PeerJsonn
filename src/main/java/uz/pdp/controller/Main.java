@@ -89,6 +89,11 @@ public class Main {
     }
 
     public static void adminMenu() {
+
+
+        System.out.println("1 ---> TRANSACTIONS  |  2 ---> IN PERIOD  |  3 ---> CHANGE COMMISSION  | 0 ---> EXIT");
+        String command = scannerStr.nextLine();
+
         while (true) {
             System.out.println("1 ---> TRANSACTIONS  |  2 ---> IN PERIOD  |  3 ---> CHANGE COMMISSION  |  4 ---> TOP USERS  |  0 ---> EXIT  ");
             String command = scannerStr.nextLine();
