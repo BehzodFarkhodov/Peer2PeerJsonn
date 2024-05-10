@@ -17,7 +17,7 @@ public abstract class BaseModel {
 
     {
         this.id = UUID.randomUUID();
-        this.createdDate = LocalDateTime.now().minusDays(10);
+        this.createdDate = LocalDateTime.now();
     }
 
     protected UUID id;
